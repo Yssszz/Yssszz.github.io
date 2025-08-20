@@ -47,11 +47,15 @@
       height: 250px;
       filter: drop-shadow(0 0 20px var(--primary-shadow));
       margin-bottom: 20px;
+      
+      user-select: none;   /* 禁止选中 */
+      -webkit-user-drag: none; /* 禁止拖拽 (Chrome/Safari) */
+      pointer-events: none; /* 可选：禁用所有交互 */
     }
   </style>
 </head>
 <body>
-  <img src="logo.png" alt="Coming soon icon">
+  <img src="logo.png" alt="Coming soon icon" draggable="false">
   <h1>Rules COMING SOON!</h1>
 </body>
 </html>
