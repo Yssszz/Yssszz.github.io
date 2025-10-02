@@ -1,61 +1,210 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="favicon.png">
-  <title>NxRP Rules Site</title>
-
-  <!-- Pixel Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Order Successful — HYPEØUT</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#111113',
+              soft: '#1a1a1e',
+              accent: '#88d922',
+              neon: '#a1ff00'
+            }
+          },
+          boxShadow: {
+            glow: '0 0 0 1px rgba(136,217,34,0.3), 0 10px 30px rgba(136,217,34,0.08)'
+          },
+          fontFamily: {
+            inter: ["Inter", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Helvetica", "Arial"]
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --primary: #82d923;
-      --secondary: #4ca30d;
-      --primary-shadow: rgba(130, 217, 35, 0.5);
-    }
-
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      background: linear-gradient(135deg, #14141c 0%, #1e1e29 100%);
-    }
-
-    html {
-      display: table;
-      font-family: 'Press Start 2P', cursive;
-    }
-
-    body {
-      display: table-cell;
-      vertical-align: middle;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 2.5em;
-      font-weight: normal;
-      color: var(--primary);
-      text-shadow: 0 0 15px var(--primary-shadow);
-    }
-
-    img {
-      width: 250px;
-      height: 250px;
-      filter: drop-shadow(0 0 20px var(--primary-shadow));
-      margin-bottom: 20px;
-      
-      user-select: none;   /* 禁止选中 */
-      -webkit-user-drag: none; /* 禁止拖拽 (Chrome/Safari) */
-      pointer-events: none; /* 可选：禁用所有交互 */
-    }
+    :root{ color-scheme: dark; }
+    html,body{ font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; }
+    .confetti{ position: fixed; inset: 0; pointer-events:none; overflow:hidden; }
+    .confetti i{ position:absolute; width:6px; height:14px; opacity:.9; animation:drop 1.8s linear forwards; }
+    @keyframes drop{ to{ transform: translateY(110vh) rotate(540deg);} }
   </style>
 </head>
-<body>
-  <img src="logo.png" alt="Coming soon icon" draggable="false">
-  <h1>Check Discord for all RP rules!</h1>
+<body class="min-h-screen bg-[radial-gradient(ellipse_at_top,rgba(136,217,34,.03),transparent_70%),radial-gradient(ellipse_at_bottom,rgba(161,255,0,.03),transparent_70%)] bg-brand text-white">
+  <header class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-brand/70 bg-brand/90 border-b border-white/10">
+    <div class="max-w-screen-md mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="#" class="text-lg font-extrabold tracking-tight">HYPE<span class="text-brand-accent">ØUT</span></a>
+      <div class="flex items-center gap-3">
+        <button id="themeBtn" class="px-3 py-1.5 rounded-full text-xs font-medium border border-white/10 hover:border-white/30">Dark / Light</button>
+        <a href="#" class="text-sm opacity-80 hover:opacity-100">Support</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-screen-md mx-auto px-4 pb-32">
+    <section class="mt-6 relative overflow-hidden rounded-2xl bg-gradient-to-b from-brand-soft to-brand/80 border border-white/10">
+      <div class="p-5 sm:p-6">
+        <div class="flex items-center gap-4">
+          <div class="relative grid place-items-center h-12 w-12 rounded-xl bg-white/5 border border-white/10 shadow-glow">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="h-7 w-7 text-brand-accent">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <div>
+            <h1 class="text-xl sm:text-2xl font-bold">Order Confirmed</h1>
+            <p class="text-sm text-white/70">Thanks! Your order <span class="font-semibold text-white">#HYP-24873</span> is on its way.</p>
+          </div>
+        </div>
+        <div class="mt-4 grid grid-cols-2 gap-3 text-xs">
+          <div class="rounded-lg bg-black/30 p-3 border border-white/10">
+            <p class="text-white/60">Estimated arrival</p>
+            <p class="mt-0.5 text-white font-semibold">Oct 12–14</p>
+          </div>
+          <div class="rounded-lg bg-black/30 p-3 border border-white/10">
+            <p class="text-white/60">Tracking</p>
+            <p class="mt-0.5 text-white font-semibold">HYPX 4 399 220</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<section class="mt-6">
+  <h2 class="text-lg font-semibold mb-3">Items</h2>
+  <div class="space-y-3">
+    <article class="flex gap-3 rounded-xl bg-white/5 border border-white/10 p-3">
+      <img src="https://r2.fivemanage.com/INqJLuvqvnMaDIlxPrNvZ/IMG_5743.webp" alt="Sneaker" class="h-24 w-24 rounded-lg object-cover">
+      <div class="flex-1 min-w-0">
+        <!-- 商品信息与价格分两列对齐 -->
+        <div class="flex items-start justify-between gap-2">
+          <!-- 左边：商品名、Size、SKU -->
+          <div>
+            <p class="font-medium truncate">BALENCIAGA Unity Snowboard Cap</p>
+            <p class="text-xs text-white/60 mt-1">Size: OS (One Size) · Qty 1</p>
+            <p class="text-xs text-white/60">SKU: 680739410B24061</p>
+          </div>
+
+          <!-- 右边：价格 -->
+          <div class="text-right">
+            <span class="text-sm text-white/50 line-through block">RM 1,900</span>
+            <span class="text-lg font-semibold text-brand-accent block">RM 999</span>
+          </div>
+        </div>
+
+        <!-- 操作按钮 -->
+        <div class="mt-2 flex gap-2">
+          <button class="text-xs px-2.5 py-1 rounded-md bg-white/10 hover:bg-white/15 border border-white/10">Track</button>
+          <button class="text-xs px-2.5 py-1 rounded-md bg-white/5 hover:bg-white/10 border border-white/10">Return</button>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+
+<article class="flex gap-3 rounded-xl bg-white/5 border border-white/10 p-3">
+  <img src="https://r2.fivemanage.com/INqJLuvqvnMaDIlxPrNvZ/IMG_5744.webp" alt="Hoodie" class="h-24 w-24 rounded-lg object-cover">
+  <div class="flex-1 min-w-0">
+    <!-- 信息和价格分两列对齐 -->
+    <div class="flex items-start justify-between gap-2">
+      <!-- 左边：商品名、Size、SKU -->
+      <div>
+        <p class="font-medium truncate">BALENCIAGA X ADIDAS OVERSIZED FOOTBALL T-SHIRT BLACK</p>
+        <p class="text-xs text-white/60 mt-1">Size: 2 · Qty 1</p>
+        <p class="text-xs text-white/60">SKU: 723663TNV131000</p>
+      </div>
+
+      <!-- 右边：价格 -->
+      <div class="text-right">
+        <span class="text-sm text-white/50 line-through block">RM 3890</span>
+        <span class="text-lg font-semibold text-brand-accent block">RM 2800</span>
+      </div>
+    </div>
+
+    <!-- 操作按钮 -->
+    <div class="mt-2 flex gap-2">
+      <button class="text-xs px-2.5 py-1 rounded-md bg-white/10 hover:bg-white/15 border border-white/10">Track</button>
+      <button class="text-xs px-2.5 py-1 rounded-md bg-white/5 hover:bg-white/10 border border-white/10">Return</button>
+    </div>
+  </div>
+</article>
+
+
+    <section class="mt-6">
+      <h2 class="text-lg font-semibold mb-3">Order Summary</h2>
+      <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
+        <dl class="text-sm space-y-2">
+          <div class="flex justify-between"><dt class="text-white/70">Subtotal</dt><dd>RM 3799</dd></div>
+          <div class="flex justify-between"><dt class="text-white/70">Shipping</dt><dd>RM 15.40</dd></div>
+          <div class="flex justify-between"><dt class="text-white/70">Tax</dt><dd>RM 0</dd></div>
+          <div class="border-t border-white/10 my-2"></div>
+          <div class="flex justify-between text-base font-semibold"><dt>Total</dt><dd>RM 3,814.4</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="mt-6 grid gap-3 sm:grid-cols-2">
+      <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
+        <h3 class="font-semibold mb-1">Shipping to</h3>
+        <p class="text-sm text-white/80">Chew Yi Sheng</p>
+        <p class="text-sm text-white/60">Unit B-19-01, Cormar Suites</p>
+        <p class="text-sm text-white/60">Kuala Lumpur, MY</p>
+        <p class="text-sm text-white/60">+60 11-2817 5596</p>
+      </div>
+      <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
+        <h3 class="font-semibold mb-1">Paid with</h3>
+        <p class="text-sm text-white/80">Visa •••• 8993</p>
+        <p class="text-sm text-white/60">Transaction ID: 20251003HLBBMYKL010O</p>
+        <p class="text-sm text-white/60">Date: Oct 3, 2025</p>
+      </div>
+    </section>
+
+    <section class="mt-6">
+      <div class="rounded-2xl bg-gradient-to-b from-brand-soft to-brand/80 border border-white/10 p-4">
+        <h3 class="font-semibold">Need support?</h3>
+        <p class="text-sm text-white/70">DM us on IG @hypeout or email support@hypeout.dev. Returns within 14 days for unworn items.</p>
+      </div>
+    </section>
+  </main>
+
+  <div class="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-brand/95 backdrop-blur px-4 py-3">
+    <div class="max-w-screen-md mx-auto flex items-center gap-3">
+      <a href="#" class="flex-1 text-center px-4 py-3 rounded-xl bg-white text-brand font-semibold shadow-lg">Continue Shopping</a>
+      <a href="#" class="px-4 py-3 rounded-xl border border-white/20 text-white/90">Download Receipt (PDF)</a>
+    </div>
+  </div>
+
+  <div id="fx" class="confetti" aria-hidden="true"></div>
+
+  <script>
+    const fx = document.getElementById('fx');
+    const colors = ['#88d922','#a1ff00','#ffffff'];
+    for (let i=0;i<80;i++){
+      const p = document.createElement('i');
+      p.style.left = Math.random()*100 + 'vw';
+      p.style.top = '-10vh';
+      p.style.background = colors[Math.floor(Math.random()*colors.length)];
+      p.style.transform = `translateY(0) rotate(${Math.random()*90}deg)`;
+      p.style.animationDelay = (Math.random()*0.7)+'s';
+      fx.appendChild(p);
+    }
+    setTimeout(()=> fx.remove(), 2200);
+
+    const btn = document.getElementById('themeBtn');
+    btn.addEventListener('click',()=>{
+      document.documentElement.classList.toggle('light');
+      const light = document.documentElement.classList.contains('light');
+      document.body.className = light
+        ? 'min-h-screen bg-white text-gray-900'
+        : 'min-h-screen bg-[radial-gradient(ellipse_at_top,rgba(136,217,34,.03),transparent_70%),radial-gradient(ellipse_at_bottom,rgba(161,255,0,.03),transparent_70%)] bg-brand text-white';
+    });
+  </script>
 </body>
 </html>
