@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Order Successful — HYPEØUT</title>
+
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -30,17 +31,56 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root{ color-scheme: dark; }
     html,body{ font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; }
     .confetti{ position: fixed; inset: 0; pointer-events:none; overflow:hidden; }
     .confetti i{ position:absolute; width:6px; height:14px; opacity:.9; animation:drop 1.8s linear forwards; }
     @keyframes drop{ to{ transform: translateY(110vh) rotate(540deg);} }
-    /* ---- mobile fixes ---- */
     .clamp-2{ display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+
+    /* —— 兜底：深色纯色背景，避免透明混色偏绿 —— */
+    body{ background-color:#111113; }
+
+    /* —— 把原本 body 的渐变放到独立层，避免与内容/模糊混色 —— */
+    #bgfx{
+      position:fixed; inset:0; z-index:-1; pointer-events:none;
+      background:
+        radial-gradient(ellipse at top, rgba(136,217,34,.03), transparent 70%),
+        radial-gradient(ellipse at bottom, rgba(161,255,0,.03), transparent 70%);
+    }
+
+    /* iOS Safari 长截图：自动关渐变 & 模糊，防止整页变青绿 */
+    @supports (-webkit-touch-callout: none){
+      html.ios-fix #bgfx{ display:none !important; }
+      html.ios-fix .backdrop-blur{ backdrop-filter:none !important; }
+      html.ios-fix .supports-\[backdrop-filter\]\:bg-brand\/70,
+      html.ios-fix .bg-brand\/90,
+      html.ios-fix .bg-brand{ background:#111113 !important; }
+    }
+
+    /* 浅色模式时不需要渐变层（白底） */
+    html.light #bgfx{ display:none; }
+
+    /* 打印（iOS 全页截图常走 print 管道）：强制纯色、关特效 */
+    @media print{
+      #bgfx{ display:none !important; }
+      .confetti{ display:none !important; }
+      .backdrop-blur{ backdrop-filter:none !important; }
+      .supports-\[backdrop-filter\]\:bg-brand\/70,
+      .bg-brand\/90,
+      .bg-brand{ background:#111113 !important; }
+    }
   </style>
 </head>
-<body class="min-h-screen bg-[radial-gradient(ellipse_at_top,rgba(136,217,34,.03),transparent_70%),radial-gradient(ellipse_at_bottom,rgba(161,255,0,.03),transparent_70%)] bg-brand text-white">
+
+<!-- 注意：这里不再放渐变类，只保留 bg-brand；渐变在 #bgfx -->
+<body class="min-h-screen bg-brand text-white">
+  <!-- 独立背景层（关键修复点） -->
+  <div id="bgfx" aria-hidden="true"></div>
+
+  <!-- Header -->
   <header class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-brand/70 bg-brand/90 border-b border-white/10">
     <div class="max-w-screen-md mx-auto px-4 py-3 flex items-center justify-between">
       <a href="#" class="text-lg font-extrabold tracking-tight">HYPE<span class="text-brand-accent">ØUT</span></a>
@@ -56,14 +96,10 @@
       <div class="p-5 sm:p-6">
         <div class="flex items-center gap-4">
           <div class="relative grid place-items-center h-12 w-12 rounded-xl bg-white/5 border border-white/10 shadow-glow">
-            <!-- ✅ 修复：使用留白更安全的路径，避免被裁切；并加了 p-0.5 进一步防止描边顶边 -->
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 viewBox="0 0 24 24"
-                 fill="none"
-                 stroke="currentColor"
-                 stroke-width="2"
-                 class="h-7 w-7 p-0.5 text-brand-accent"
-                 aria-hidden="true">
+            <!-- 勾圈图标（已加内边保证不被裁切） -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor" stroke-width="2"
+                 class="h-7 w-7 p-0.5 text-brand-accent" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round"
                     d="M9 12.75l2.25 2.25L15.75 9M12 22.5c5.799 0 10.5-4.701 10.5-10.5S17.799 1.5 12 1.5 1.5 6.201 1.5 12 6.201 22.5 12 22.5z"/>
             </svg>
@@ -86,7 +122,7 @@
       </div>
     </section>
 
-    <!-- ITEMS -->
+    <!-- ITEMS（保持你原本“有内容”的静态卡片） -->
     <section class="mt-6">
       <h2 class="text-lg font-semibold mb-3">Items</h2>
       <div class="space-y-3">
@@ -136,7 +172,7 @@
       </div>
     </section>
 
-    <!-- SUMMARY -->
+    <!-- SUMMARY（保持你原本的数值） -->
     <section class="mt-6">
       <h2 class="text-lg font-semibold mb-3">Order Summary</h2>
       <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
@@ -150,7 +186,7 @@
       </div>
     </section>
 
-    <!-- ADDRESS / PAYMENT -->
+    <!-- ADDRESS / PAYMENT（保持你原本的静态信息） -->
     <section class="mt-6 grid gap-3 sm:grid-cols-2">
       <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
         <h3 class="font-semibold mb-1">Shipping to</h3>
@@ -183,9 +219,19 @@
     </div>
   </div>
 
+  <!-- Confetti -->
   <div id="fx" class="confetti" aria-hidden="true"></div>
 
   <script>
+    // iOS Safari 识别：仅在该环境下应用“长截图防偏色”样式
+    (function(){
+      const ua = navigator.userAgent || '';
+      const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
+      if(isIOS && isSafari){ document.documentElement.classList.add('ios-fix'); }
+    })();
+
+    // Confetti（原样保留）
     const fx = document.getElementById('fx');
     const colors = ['#88d922','#a1ff00','#ffffff'];
     for (let i=0;i<80;i++){
@@ -199,13 +245,12 @@
     }
     setTimeout(()=> fx.remove(), 2200);
 
+    // 主题切换（浅色时隐藏渐变层）
     const btn = document.getElementById('themeBtn');
     btn.addEventListener('click',()=>{
       document.documentElement.classList.toggle('light');
       const light = document.documentElement.classList.contains('light');
-      document.body.className = light
-        ? 'min-h-screen bg-white text-gray-900'
-        : 'min-h-screen bg-[radial-gradient(ellipse_at_top,rgba(136,217,34,.03),transparent_70%),radial-gradient(ellipse_at_bottom,rgba(161,255,0,.03),transparent_70%)] bg-brand text-white';
+      document.body.className = light ? 'min-h-screen bg-white text-gray-900' : 'min-h-screen bg-brand text-white';
     });
   </script>
 </body>
