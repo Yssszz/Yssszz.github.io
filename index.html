@@ -56,8 +56,16 @@
       <div class="p-5 sm:p-6">
         <div class="flex items-center gap-4">
           <div class="relative grid place-items-center h-12 w-12 rounded-xl bg-white/5 border border-white/10 shadow-glow">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="h-7 w-7 text-brand-accent">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 0 0118 0z"/>
+            <!-- ✅ 修复：使用留白更安全的路径，避免被裁切；并加了 p-0.5 进一步防止描边顶边 -->
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="2"
+                 class="h-7 w-7 p-0.5 text-brand-accent"
+                 aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M9 12.75l2.25 2.25L15.75 9M12 22.5c5.799 0 10.5-4.701 10.5-10.5S17.799 1.5 12 1.5 1.5 6.201 1.5 12 6.201 22.5 12 22.5z"/>
             </svg>
           </div>
           <div>
@@ -94,7 +102,7 @@
               </div>
               <div class="text-right shrink-0 w-28">
                 <span class="text-sm text-white/50 line-through block">RM 1,900</span>
-                <span class="text-lg font-semibold text-brand-accent block">RM 999</span>
+                <span class="text-lg font-semibold text-brand-accent block">RM 1099</span>
               </div>
             </div>
             <div class="mt-2 flex gap-2">
@@ -110,13 +118,13 @@
           <div class="flex-1 min-w-0">
             <div class="flex items-start justify-between gap-2">
               <div class="min-w-0 pr-2">
-                <p class="font-medium clamp-2">BALENCIAGA x adidas Oversized Football T‑Shirt — Black</p>
+                <p class="font-medium clamp-2">BALENCIAGA x adidas Oversized Football T-Shirt — Black</p>
                 <p class="text-xs text-white/60 mt-1">Size: 2 · Qty 1</p>
                 <p class="text-xs text-white/60">SKU: 723663TNV131000</p>
               </div>
               <div class="text-right shrink-0 w-28">
-                <span class="text-sm text-white/50 line-through block">RM 3,890</span>
-                <span class="text-lg font-semibold text-brand-accent block">RM 2,800</span>
+                <span class="text-sm text-white/50 line-through block">RM 3,999</span>
+                <span class="text-lg font-semibold text-brand-accent block">RM 2,888</span>
               </div>
             </div>
             <div class="mt-2 flex gap-2">
@@ -133,11 +141,11 @@
       <h2 class="text-lg font-semibold mb-3">Order Summary</h2>
       <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
         <dl class="text-sm space-y-2">
-          <div class="flex justify-between"><dt class="text-white/70">Subtotal</dt><dd>RM 3,799.00</dd></div>
+          <div class="flex justify-between"><dt class="text-white/70">Subtotal</dt><dd>RM 3,987.00</dd></div>
           <div class="flex justify-between"><dt class="text-white/70">Shipping</dt><dd>RM 15.40</dd></div>
           <div class="flex justify-between"><dt class="text-white/70">Tax</dt><dd>RM 0.00</dd></div>
           <div class="border-t border-white/10 my-2"></div>
-          <div class="flex justify-between text-base font-semibold"><dt>Total</dt><dd>RM 3,814.40</dd></div>
+          <div class="flex justify-between text-base font-semibold"><dt>Total</dt><dd>RM 4,002.40</dd></div>
         </dl>
       </div>
     </section>
