@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Order Successful — HYPEØUT</title>
+  <title>Merry Christmas — HYPEØUT</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -13,14 +13,18 @@
         extend: {
           colors: {
             brand: {
-              DEFAULT: '#111113',
-              soft: '#1a1a1e',
+              DEFAULT: '#0c0c0e',
+              soft: '#151518',
               accent: '#88d922',
-              neon: '#a1ff00'
+              neon: '#a1ff00',
+              gold: '#f5d678',     // warm festive gold
+              red: '#e63434',
+              green: '#7af52b'
             }
           },
           boxShadow: {
-            glow: '0 0 0 1px rgba(136,217,34,0.3), 0 10px 30px rgba(136,217,34,0.08)'
+            glow: '0 0 0 1px rgba(136,217,34,0.3), 0 10px 30px rgba(136,217,34,0.08)',
+            frost: '0 0 18px rgba(255,255,255,0.25)'
           },
           fontFamily: {
             inter: ["Inter", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Helvetica", "Arial"]
@@ -35,55 +39,64 @@
   <style>
     :root{ color-scheme: dark; }
     html,body{ font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; }
-    .confetti{ position: fixed; inset: 0; pointer-events:none; overflow:hidden; }
-    .confetti i{ position:absolute; width:6px; height:14px; opacity:.9; animation:drop 1.8s linear forwards; }
-    @keyframes drop{ to{ transform: translateY(110vh) rotate(540deg);} }
-    .clamp-2{ display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
 
-    /* —— 兜底：深色纯色背景，避免透明混色偏绿 —— */
-    body{ background-color:#111113; }
-
-    /* —— 把原本 body 的渐变放到独立层，避免与内容/模糊混色 —— */
+    /* —— Xmas background glow —— */
+    body{ background-color:#0c0c0e; }
     #bgfx{
-      position:fixed; inset:0; z-index:-1; pointer-events:none;
+      position:fixed; inset:0; z-index:-2; pointer-events:none;
       background:
-        radial-gradient(ellipse at top, rgba(136,217,34,.03), transparent 70%),
-        radial-gradient(ellipse at bottom, rgba(161,255,0,.03), transparent 70%);
+        radial-gradient(circle at 18% 18%, rgba(230,52,52,.22), transparent 48%),
+        radial-gradient(circle at 82% 82%, rgba(122,245,43,.22), transparent 48%),
+        radial-gradient(ellipse at center, rgba(255,255,255,.06), transparent 60%);
     }
 
-    /* iOS Safari 长截图：自动关渐变 & 模糊，防止整页变青绿 */
+    /* —— Snow layer —— */
+    #snow{ position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden; }
+    .snowflake{ position:absolute; top:-10px; color:#fff; opacity:.9; font-size:12px; animation:fall linear forwards; }
+    @keyframes fall{ to{ transform: translateY(110vh) rotate(540deg); opacity:.25; } }
+
+    /* Clamp util */
+    .clamp-2{ display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+
+    /* iOS Safari 长截图：关闭模糊与渐变避免偏色 */
     @supports (-webkit-touch-callout: none){
       html.ios-fix #bgfx{ display:none !important; }
       html.ios-fix .backdrop-blur{ backdrop-filter:none !important; }
       html.ios-fix .supports-\[backdrop-filter\]\:bg-brand\/70,
       html.ios-fix .bg-brand\/90,
-      html.ios-fix .bg-brand{ background:#111113 !important; }
+      html.ios-fix .bg-brand{ background:#0c0c0e !important; }
     }
 
-    /* 浅色模式时不需要渐变层（白底） */
+    /* 浅色模式时隐藏彩色渐变 */
     html.light #bgfx{ display:none; }
 
     /* 打印（iOS 全页截图常走 print 管道）：强制纯色、关特效 */
     @media print{
       #bgfx{ display:none !important; }
-      .confetti{ display:none !important; }
+      #snow{ display:none !important; }
       .backdrop-blur{ backdrop-filter:none !important; }
       .supports-\[backdrop-filter\]\:bg-brand\/70,
       .bg-brand\/90,
-      .bg-brand{ background:#111113 !important; }
+      .bg-brand{ background:#0c0c0e !important; }
     }
+
+    /* Frosty buttons */
+    .frost-btn{ box-shadow: inset 0 0 8px rgba(255,255,255,.35), 0 0 10px rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.22); }
   </style>
 </head>
 
-<!-- 注意：这里不再放渐变类，只保留 bg-brand；渐变在 #bgfx -->
 <body class="min-h-screen bg-brand text-white">
-  <!-- 独立背景层（关键修复点） -->
+  <!-- 独立背景层 -->
   <div id="bgfx" aria-hidden="true"></div>
+  <div id="snow" aria-hidden="true"></div>
 
   <!-- Header -->
   <header class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-brand/70 bg-brand/90 border-b border-white/10">
     <div class="max-w-screen-md mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="#" class="text-lg font-extrabold tracking-tight">HYPE<span class="text-brand-accent">ØUT</span></a>
+      <a href="#" class="text-lg font-extrabold tracking-tight flex items-center gap-2">
+        <span>HYPE<span class="text-brand-accent">ØUT</span></span>
+        <span class="text-xs rounded-full px-2 py-0.5 border border-white/10 bg-white/5">XMAS 🎄</span>
+      </a>
       <div class="flex items-center gap-3">
         <button id="themeBtn" class="px-3 py-1.5 rounded-full text-xs font-medium border border-white/10 hover:border-white/30">Dark / Light</button>
         <a href="#" class="text-sm opacity-80 hover:opacity-100">Support</a>
@@ -92,79 +105,79 @@
   </header>
 
   <main class="max-w-screen-md mx-auto px-4 pb-32">
-    <section class="mt-6 relative overflow-hidden rounded-2xl bg-gradient-to-b from-brand-soft to-brand/80 border border-white/10">
+    <!-- Success Card (festive) -->
+    <section class="mt-6 relative overflow-hidden rounded-2xl bg-gradient-to-b from-brand-soft to-brand/80 border border-white/10 shadow-frost">
       <div class="p-5 sm:p-6">
         <div class="flex items-center gap-4">
           <div class="relative grid place-items-center h-12 w-12 rounded-xl bg-white/5 border border-white/10 shadow-glow">
-            <!-- 勾圈图标（已加内边保证不被裁切） -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                 fill="none" stroke="currentColor" stroke-width="2"
-                 class="h-7 w-7 p-0.5 text-brand-accent" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M9 12.75l2.25 2.25L15.75 9M12 22.5c5.799 0 10.5-4.701 10.5-10.5S17.799 1.5 12 1.5 1.5 6.201 1.5 12 6.201 22.5 12 22.5z"/>
+            <!-- Gift icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-7 w-7 p-0.5 text-brand-accent" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7m16 0H4m16 0V9a2 2 0 0 0-2-2h-3.5m-7 0H6A2 2 0 0 0 4 9v3m12.5-5C16.5 5.5 15 4 13.5 4S10.5 5.5 10.5 7m6 0H7.5" />
             </svg>
           </div>
           <div>
-            <h1 class="text-xl sm:text-2xl font-bold">Order Confirmed</h1>
-            <p class="text-sm text-white/70">Thanks! Your order <span class="font-semibold text-white">#HYP-24873</span> is on its way.</p>
+            <h1 class="text-xl sm:text-2xl font-bold">Order Confirmed — Merry Christmas!</h1>
+            <p class="text-sm text-white/70">Thanks! Your order <span class="font-semibold text-white">#HYP-37862</span> is on its way. 🎄</p>
           </div>
         </div>
         <div class="mt-4 grid grid-cols-2 gap-3 text-xs">
           <div class="rounded-lg bg-black/30 p-3 border border-white/10">
             <p class="text-white/60">Estimated arrival</p>
-            <p class="mt-0.5 text-white font-semibold">Oct 12–14</p>
+            <p class="mt-0.5 text-white font-semibold">Dec 12–14</p>
           </div>
           <div class="rounded-lg bg-black/30 p-3 border border-white/10">
             <p class="text-white/60">Tracking</p>
-            <p class="mt-0.5 text-white font-semibold">HYPX 4 399 220</p>
+            <p class="mt-0.5 text-white font-semibold">HYPX 4 412 541</p>
           </div>
         </div>
       </div>
+      <!-- garland edge -->
+      <div class="absolute -top-1 inset-x-0 h-1 bg-gradient-to-r from-brand-red via-brand-gold to-brand-green opacity-70"></div>
     </section>
 
-    <!-- ITEMS（保持你原本“有内容”的静态卡片） -->
+    <!-- ITEMS（保留并恢复你的原始 Items） -->
     <section class="mt-6">
       <h2 class="text-lg font-semibold mb-3">Items</h2>
       <div class="space-y-3">
-        <!-- Cap -->
+        <!-- Supreme Playboi Carti Tee Black (FW25) -->
         <article class="flex gap-3 rounded-xl bg-white/5 border border-white/10 p-3">
-          <img src="https://r2.fivemanage.com/INqJLuvqvnMaDIlxPrNvZ/IMG_5743.webp" alt="Cap" class="h-24 w-24 rounded-lg object-cover">
+          <img src="https://r2.fivemanage.com/INqJLuvqvnMaDIlxPrNvZ/PlayboiCartiTee-Front.png" alt="Cap" class="h-24 w-24 rounded-lg object-cover">
           <div class="flex-1 min-w-0">
             <div class="flex items-start justify-between gap-2">
               <div class="min-w-0 pr-2">
-                <p class="font-medium clamp-2">BALENCIAGA Unity Snowboard Cap</p>
-                <p class="text-xs text-white/60 mt-1">Size: OS (One Size) · Qty 1</p>
-                <p class="text-xs text-white/60">SKU: 680739410B24061</p>
+                <p class="font-medium clamp-2">Supreme Playboi Carti Tee Black (FW25)</p>
+                <p class="text-xs text-white/60 mt-1">Size: M · Qty 1</p>
+                <p class="text-xs text-white/60">SKU: FW25T50</p>
               </div>
               <div class="text-right shrink-0 w-28">
-                <span class="text-sm text-white/50 line-through block">RM 1,900</span>
-                <span class="text-lg font-semibold text-brand-accent block">RM 1,099</span>
+                <span class="text-sm text-white/50 line-through block">RM 699</span>
+                <span class="text-lg font-semibold text-brand-accent block">RM 420</span>
               </div>
             </div>
             <div class="mt-2 flex gap-2">
-              <button class="text-xs px-2.5 py-1 rounded-md bg-white/10 hover:bg-white/15 border border-white/10">Track</button>
+              <button class="text-xs px-2.5 py-1 rounded-md bg-white/10 hover:bg-white/15 border border-white/10 frost-btn">Track</button>
               <button class="text-xs px-2.5 py-1 rounded-md bg-white/5 hover:bg-white/10 border border-white/10">Return</button>
             </div>
           </div>
         </article>
 
-        <!-- Tee -->
+        <!-- Acne Studios Loose Fit Jeans - 2006 (Mid Blue) -->
         <article class="flex gap-3 rounded-xl bg-white/5 border border-white/10 p-3">
-          <img src="https://r2.fivemanage.com/INqJLuvqvnMaDIlxPrNvZ/IMG_5744.webp" alt="Tee" class="h-24 w-24 rounded-lg object-cover">
+          <img src="https://www.acnestudios.com/dw/image/v2/AAXV_PRD/on/demandware.static/-/Sites-acne-product-catalog/default/dw3ee074fe/images/BK/BK0659-/2000x/BK0659-AUZ_FLAT.jpg?sw=560&sh=840" alt="Tee" class="h-24 w-24 rounded-lg object-cover">
           <div class="flex-1 min-w-0">
             <div class="flex items-start justify-between gap-2">
               <div class="min-w-0 pr-2">
-                <p class="font-medium clamp-2">BALENCIAGA x adidas Oversized Football T-Shirt — Black</p>
-                <p class="text-xs text-white/60 mt-1">Size: 2 · Qty 1</p>
-                <p class="text-xs text-white/60">SKU: 723663TNV131000</p>
+                <p class="font-medium clamp-2">Acne Studios Loose Fit Jeans - 2006 (Mid Blue)</p>
+                <p class="text-xs text-white/60 mt-1">Size: 42 · Qty 1</p>
+                <p class="text-xs text-white/60">SKU: BK0659-AUZ</p>
               </div>
               <div class="text-right shrink-0 w-28">
-                <span class="text-sm text-white/50 line-through block">RM 3,999</span>
-                <span class="text-lg font-semibold text-brand-accent block">RM 2,888</span>
+                <span class="text-sm text-white/50 line-through block">RM 5.999</span>
+                <span class="text-lg font-semibold text-brand-accent block">RM 3,888</span>
               </div>
             </div>
             <div class="mt-2 flex gap-2">
-              <button class="text-xs px-2.5 py-1 rounded-md bg-white/10 hover:bg-white/15 border border-white/10">Track</button>
+              <button class="text-xs px-2.5 py-1 rounded-md bg-white/10 hover:bg-white/15 border border-white/10 frost-btn">Track</button>
               <button class="text-xs px-2.5 py-1 rounded-md bg-white/5 hover:bg-white/10 border border-white/10">Return</button>
             </div>
           </div>
@@ -172,21 +185,21 @@
       </div>
     </section>
 
-    <!-- SUMMARY（保持你原本的数值） -->
+    <!-- SUMMARY（保持你的数值） -->
     <section class="mt-6">
       <h2 class="text-lg font-semibold mb-3">Order Summary</h2>
       <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
         <dl class="text-sm space-y-2">
-          <div class="flex justify-between"><dt class="text-white/70">Subtotal</dt><dd>RM 3,987.00</dd></div>
+          <div class="flex justify-between"><dt class="text-white/70">Subtotal</dt><dd>RM 4,308.00</dd></div>
           <div class="flex justify-between"><dt class="text-white/70">Shipping</dt><dd>RM 15.40</dd></div>
           <div class="flex justify-between"><dt class="text-white/70">Tax</dt><dd>RM 0.00</dd></div>
           <div class="border-t border-white/10 my-2"></div>
-          <div class="flex justify-between text-base font-semibold"><dt>Total</dt><dd>RM 4,002.40</dd></div>
+          <div class="flex justify-between text-base font-semibold"><dt>Total</dt><dd>RM 4,323.40</dd></div>
         </dl>
       </div>
     </section>
 
-    <!-- ADDRESS / PAYMENT（保持你原本的静态信息） -->
+    <!-- ADDRESS / PAYMENT（保留） -->
     <section class="mt-6 grid gap-3 sm:grid-cols-2">
       <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
         <h3 class="font-semibold mb-1">Shipping to</h3>
@@ -198,12 +211,12 @@
       <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
         <h3 class="font-semibold mb-1">Paid with</h3>
         <p class="text-sm text-white/80">Visa •••• 8993</p>
-        <p class="text-sm text-white/60">Transaction ID: 20251003HLBBMYKL010O</p>
-        <p class="text-sm text-white/60">Date: Oct 3, 2025</p>
+        <p class="text-sm text-white/60">Transaction ID: 20251105HLBBMYKL0101</p>
+        <p class="text-sm text-white/60">Date: Nov 5, 2025</p>
       </div>
     </section>
 
-    <!-- SUPPORT -->
+    <!-- SUPPORT（保留） -->
     <section class="mt-6">
       <div class="rounded-2xl bg-gradient-to-b from-brand-soft to-brand/80 border border-white/10 p-4">
         <h3 class="font-semibold">Need support?</h3>
@@ -212,15 +225,13 @@
     </section>
   </main>
 
+  <!-- Footer CTA（加霜感） -->
   <div class="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-brand/95 backdrop-blur px-4 py-3">
     <div class="max-w-screen-md mx-auto flex items-center gap-3">
-      <a href="#" class="flex-1 text-center px-4 py-3 rounded-xl bg-white text-brand font-semibold shadow-lg">Continue Shopping</a>
-      <a href="#" class="px-4 py-3 rounded-xl border border-white/20 text-white/90">Download Receipt (PDF)</a>
+      <a href="#" class="flex-1 text-center px-4 py-3 rounded-xl bg-white text-brand font-semibold shadow-lg frost-btn">🎄 Continue Shopping</a>
+      <a href="#" class="px-4 py-3 rounded-xl border border-white/20 text-white/90 frost-btn">⛄ Download Receipt (PDF)</a>
     </div>
   </div>
-
-  <!-- Confetti -->
-  <div id="fx" class="confetti" aria-hidden="true"></div>
 
   <script>
     // iOS Safari 识别：仅在该环境下应用“长截图防偏色”样式
@@ -231,20 +242,6 @@
       if(isIOS && isSafari){ document.documentElement.classList.add('ios-fix'); }
     })();
 
-    // Confetti（原样保留）
-    const fx = document.getElementById('fx');
-    const colors = ['#88d922','#a1ff00','#ffffff'];
-    for (let i=0;i<80;i++){
-      const p = document.createElement('i');
-      p.style.left = Math.random()*100 + 'vw';
-      p.style.top = '-10vh';
-      p.style.background = colors[Math.floor(Math.random()*colors.length)];
-      p.style.transform = `translateY(0) rotate(${Math.random()*90}deg)`;
-      p.style.animationDelay = (Math.random()*0.7)+'s';
-      fx.appendChild(p);
-    }
-    setTimeout(()=> fx.remove(), 2200);
-
     // 主题切换（浅色时隐藏渐变层）
     const btn = document.getElementById('themeBtn');
     btn.addEventListener('click',()=>{
@@ -252,6 +249,23 @@
       const light = document.documentElement.classList.contains('light');
       document.body.className = light ? 'min-h-screen bg-white text-gray-900' : 'min-h-screen bg-brand text-white';
     });
+
+    // ❄️ Snow generator（轻量）
+    const snowLayer = document.getElementById('snow');
+    const snowChars = ['❄','✦','✼','✽'];
+    function spawnSnow(){
+      const el = document.createElement('i');
+      el.className = 'snowflake';
+      el.textContent = snowChars[Math.floor(Math.random()*snowChars.length)];
+      el.style.left = Math.random()*100 + 'vw';
+      el.style.fontSize = (8 + Math.random()*12) + 'px';
+      el.style.animationDuration = (4 + Math.random()*5) + 's';
+      snowLayer.appendChild(el);
+      setTimeout(()=> el.remove(), 10000);
+    }
+    const timer = setInterval(spawnSnow, 120);
+
+    // 如需关闭雪花，可注释上面的 setInterval 或在某个按钮上绑定 clearInterval(timer)
   </script>
 </body>
 </html>
