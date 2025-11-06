@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Merry Christmas — HYPEØUT</title>
+  <title>HYPEØUT — Xmas Orders</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -17,7 +17,7 @@
               soft: '#151518',
               accent: '#88d922',
               neon: '#a1ff00',
-              gold: '#f5d678',     // warm festive gold
+              gold: '#f5d678',
               red: '#e63434',
               green: '#7af52b'
             }
@@ -39,26 +39,20 @@
   <style>
     :root{ color-scheme: dark; }
     html,body{ font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; }
-
-    /* —— Xmas background glow —— */
     body{ background-color:#0c0c0e; }
-    #bgfx{
-      position:fixed; inset:0; z-index:-2; pointer-events:none;
+    #bgfx{ position:fixed; inset:0; z-index:-2; pointer-events:none;
       background:
         radial-gradient(circle at 18% 18%, rgba(230,52,52,.22), transparent 48%),
         radial-gradient(circle at 82% 82%, rgba(122,245,43,.22), transparent 48%),
         radial-gradient(ellipse at center, rgba(255,255,255,.06), transparent 60%);
     }
-
-    /* —— Snow layer —— */
     #snow{ position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden; }
     .snowflake{ position:absolute; top:-10px; color:#fff; opacity:.9; font-size:12px; animation:fall linear forwards; }
     @keyframes fall{ to{ transform: translateY(110vh) rotate(540deg); opacity:.25; } }
-
-    /* Clamp util */
+    .frost-btn{ box-shadow: inset 0 0 8px rgba(255,255,255,.35), 0 0 10px rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.22); }
+    .chip{ font-size:11px; padding:.35rem .6rem; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.06); }
+    .status-dot{ width:10px; height:10px; border-radius:999px; display:inline-block; margin-right:8px; }
     .clamp-2{ display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-
-    /* iOS Safari 长截图：关闭模糊与渐变避免偏色 */
     @supports (-webkit-touch-callout: none){
       html.ios-fix #bgfx{ display:none !important; }
       html.ios-fix .backdrop-blur{ backdrop-filter:none !important; }
@@ -66,11 +60,7 @@
       html.ios-fix .bg-brand\/90,
       html.ios-fix .bg-brand{ background:#0c0c0e !important; }
     }
-
-    /* 浅色模式时隐藏彩色渐变 */
     html.light #bgfx{ display:none; }
-
-    /* 打印（iOS 全页截图常走 print 管道）：强制纯色、关特效 */
     @media print{
       #bgfx{ display:none !important; }
       #snow{ display:none !important; }
@@ -79,162 +69,307 @@
       .bg-brand\/90,
       .bg-brand{ background:#0c0c0e !important; }
     }
-
-    /* Frosty buttons */
-    .frost-btn{ box-shadow: inset 0 0 8px rgba(255,255,255,.35), 0 0 10px rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.22); }
   </style>
 </head>
 
 <body class="min-h-screen bg-brand text-white">
-  <!-- 独立背景层 -->
+  <!-- 背景 & 雪花 -->
   <div id="bgfx" aria-hidden="true"></div>
   <div id="snow" aria-hidden="true"></div>
+
+  <!-- ======================= CONFIG（只改这里就行） ======================= -->
+  <script>
+    const CONFIG = {
+      site: {
+        brandTextLeft: 'HYPE',
+        brandTextRight: 'ØUT',
+        showSnow: true,
+        footerLeftBtnText: '🎄 Continue Shopping',
+        footerRightBtnText: '⛄ Download (PDF)'
+      },
+      user: {
+        name: 'Chew Yi Sheng',
+        phone: '+60 11-2817 5596',
+        addressLines: ['Unit B-19-01, Cormar Suites', 'Kuala Lumpur, MY'],
+      },
+      payment: {
+        cardMasked: 'Visa •••• 8993',
+        txnId: '20251105HLBBMYKL0101',
+        date: 'Nov 5, 2025'
+      },
+      orders: [
+        {
+          id: 'HYP-37862',
+          date: '2025-11-05',
+          status: 'shipped',
+          total: 4323.40,
+          eta: 'Nov 12–14',
+          courier: 'DHL',
+          tracking: 'HYPX 4 412 541',
+          items: [
+            {
+              title: 'Supreme Playboi Carti Tee Black (FW25)',
+              sku: 'FW25T50',
+              size: 'M',
+              qty: 1,
+              price: 420,
+              img: 'https://r2.fivemanage.com/INqJLuvqvnMaDIlxPrNvZ/PlayboiCartiTee-Front.png',
+              compareAt: 699
+            },
+            {
+              title: 'Acne Studios Loose Fit Jeans - 2006 (Mid Blue)',
+              sku: 'BK0659-AUZ',
+              size: '42',
+              qty: 1,
+              price: 3888,
+              img: 'https://www.acnestudios.com/dw/image/v2/AAXV_PRD/on/demandware.static/-/Sites-acne-product-catalog/default/dw3ee074fe/images/BK/BK0659-/2000x/BK0659-AUZ_FLAT.jpg?sw=560&sh=840',
+              compareAt: 5999
+            }
+          ],
+          summary: { subtotal: 4308.00, shipping: 15.40, tax: 0.00, total: 4323.40 },
+        },
+        {
+          id: 'HYP-24873',
+          date: '2025-10-16',
+          status: 'delivered',
+          total: 4002.40,
+          deliveredAt: 'Oct 3, 2025',
+          items: [
+            {
+              title: 'BALENCIAGA Unity Snowboard Cap',
+              size: 'OS', qty: 1, price: 1099,
+              img: 'https://r2.fivemanage.com/INqJLuvqvnMaDIlxPrNvZ/IMG_5743.webp'
+            },
+            {
+              title: 'BALENCIAGA x adidas Oversized Football T-Shirt — Black',
+              size: '2', qty: 1, price: 2888,
+              img: 'https://r2.fivemanage.com/INqJLuvqvnMaDIlxPrNvZ/IMG_6535.png'
+            }
+          ],
+          summary: { subtotal: 3987.00, shipping: 15.40, tax: 0.00, total: 4002.40 }
+        },
+        {
+          id: 'HYP-14201',
+          date: '2025-10-11',
+          status: 'delivered',
+          total: 3190.00,
+          deliveredAt: 'Oct 20, 2025',
+          items: [
+            {
+              title: 'Balenciaga Tape Type Medium Fit T-shirt',
+              size: 'L', qty: 1, price: 2400,
+              img: 'https://r2.fivemanage.com/INqJLuvqvnMaDIlxPrNvZ/Balenciaga-Tape-Type-Medium-Fit-T-shirt-Black-Faded.png'
+            },
+            {
+              title: 'Nike SB Dunk Low - The Powerpuff Girls',
+              size: 'UK-10', qty: 1, price: 790,
+              img: 'https://r2.fivemanage.com/INqJLuvqvnMaDIlxPrNvZ/FZ8320-400_334621698_D_A_1X1_bd624c85e984eb4b3e5bbc5eb4b33f00.jpg'
+            }
+          ],
+          summary: { subtotal: 3190.00, shipping: 0.00, tax: 0.00, total: 3190.00 }
+        }
+      ],
+      confirm: {
+        defaultOrderId: 'HYP-37862'
+      }
+    };
+  </script>
+  <!-- ======================= /CONFIG ======================= -->
 
   <!-- Header -->
   <header class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-brand/70 bg-brand/90 border-b border-white/10">
     <div class="max-w-screen-md mx-auto px-4 py-3 flex items-center justify-between">
       <a href="#" class="text-lg font-extrabold tracking-tight flex items-center gap-2">
-        <span>HYPE<span class="text-brand-accent">ØUT</span></span>
+        <span id="brand-left">HYPE</span><span id="brand-right" class="text-brand-accent">ØUT</span>
         <span class="text-xs rounded-full px-2 py-0.5 border border-white/10 bg-white/5">XMAS 🎄</span>
       </a>
+      <nav class="flex items-center gap-1">
+        <a href="#confirm" class="nav-btn px-3 py-1.5 rounded-full text-xs border border-white/10 hover:border-white/30">Confirm</a>
+        <a href="#history" class="nav-btn px-3 py-1.5 rounded-full text-xs border border-white/10 hover:border-white/30">History</a>
+        <a href="#spend" class="nav-btn px-3 py-1.5 rounded-full text-xs border border-white/10 hover:border-white/30">Total Spend</a>
+      </nav>
       <div class="flex items-center gap-3">
         <button id="themeBtn" class="px-3 py-1.5 rounded-full text-xs font-medium border border-white/10 hover:border-white/30">Dark / Light</button>
-        <a href="#" class="text-sm opacity-80 hover:opacity-100">Support</a>
       </div>
     </div>
   </header>
 
   <main class="max-w-screen-md mx-auto px-4 pb-32">
-    <!-- Success Card (festive) -->
-    <section class="mt-6 relative overflow-hidden rounded-2xl bg-gradient-to-b from-brand-soft to-brand/80 border border-white/10 shadow-frost">
-      <div class="p-5 sm:p-6">
-        <div class="flex items-center gap-4">
-          <div class="relative grid place-items-center h-12 w-12 rounded-xl bg-white/5 border border-white/10 shadow-glow">
-            <!-- Gift icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-7 w-7 p-0.5 text-brand-accent" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7m16 0H4m16 0V9a2 2 0 0 0-2-2h-3.5m-7 0H6A2 2 0 0 0 4 9v3m12.5-5C16.5 5.5 15 4 13.5 4S10.5 5.5 10.5 7m6 0H7.5" />
-            </svg>
+    <!-- ============== CONFIRM (dynamic) ============== -->
+    <section id="view-confirm" class="mt-6 hidden">
+      <div class="relative overflow-hidden rounded-2xl bg-gradient-to-b from-brand-soft to-brand/80 border border-white/10 shadow-frost">
+        <div class="p-5 sm:p-6">
+          <div class="flex items-center gap-4">
+            <div class="relative grid place-items-center h-12 w-12 rounded-xl bg-white/5 border border-white/10 shadow-glow">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-7 w-7 p-0.5 text-brand-accent" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7m16 0H4m16 0V9a2 2 0 0 0-2-2h-3.5m-7 0H6A2 2 0 0 0 4 9v3m12.5-5C16.5 5.5 15 4 13.5 4S10.5 5.5 10.5 7m6 0H7.5" />
+              </svg>
+            </div>
+            <div>
+              <h1 class="text-xl sm:text-2xl font-bold">Order Confirmed!</h1>
+              <p id="confirm-sub" class="text-sm text-white/70"></p>
+            </div>
           </div>
+          <div class="mt-4 grid grid-cols-2 gap-3 text-xs">
+            <div class="rounded-lg bg-black/30 p-3 border border-white/10">
+              <p class="text-white/60">Estimated arrival</p>
+              <p id="confirm-eta" class="mt-0.5 text-white font-semibold">—</p>
+            </div>
+            <div class="rounded-lg bg-black/30 p-3 border border-white/10">
+              <p class="text-white/60">Tracking</p>
+              <p id="confirm-tracking" class="mt-0.5 text-white font-semibold">—</p>
+            </div>
+          </div>
+        </div>
+        <div class="absolute -top-1 inset-x-0 h-1 bg-gradient-to-r from-brand-red via-brand-gold to-brand-green opacity-70"></div>
+      </div>
+
+      <!-- items -->
+      <section class="mt-6">
+        <h2 class="text-lg font-semibold mb-3">Items</h2>
+        <div id="confirm-items" class="space-y-3"></div>
+      </section>
+
+      <!-- summary -->
+      <section class="mt-6">
+        <h2 class="text-lg font-semibold mb-3">Order Summary</h2>
+        <div id="confirm-summary" class="rounded-2xl bg-white/5 border border-white/10 p-4"></div>
+      </section>
+
+      <!-- address / payment -->
+      <section class="mt-6 grid gap-3 sm:grid-cols-2">
+        <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
+          <h3 class="font-semibold mb-1">Shipping to</h3>
+          <p class="text-sm text-white/80" id="confirm-name"></p>
+          <div id="confirm-address" class="text-sm text-white/60"></div>
+          <p class="text-sm text-white/60" id="confirm-phone"></p>
+        </div>
+        <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
+          <h3 class="font-semibold mb-1">Paid with</h3>
+          <p class="text-sm text-white/80" id="confirm-card"></p>
+          <p class="text-sm text-white/60" id="confirm-txn"></p>
+          <p class="text-sm text-white/60" id="confirm-date"></p>
+        </div>
+      </section>
+
+      <!-- support -->
+      <section class="mt-6">
+        <div class="rounded-2xl bg-gradient-to-b from-brand-soft to-brand/80 border border-white/10 p-4">
+          <h3 class="font-semibold">Need support?</h3>
+          <p class="text-sm text-white/70">DM us on IG @hypeout or email support@hypeout.dev. Returns within 14 days for unworn items.</p>
+        </div>
+      </section>
+    </section>
+
+    <!-- ============== HISTORY (dynamic from CONFIG) ============== -->
+    <section id="view-history" class="mt-6 hidden">
+      <div class="flex items-end justify-between gap-3">
+        <div>
+          <h1 class="text-2xl font-extrabold">Order History</h1>
+          <p class="text-sm text-white/70">View your past orders, status and details.</p>
+        </div>
+        <div class="flex items-center gap-2 text-xs">
+          <button data-filter="all" class="filter-btn px-3 py-1.5 rounded-full border border-white/10 bg-white/5">All</button>
+          <button data-filter="shipped" class="filter-btn px-3 py-1.5 rounded-full border border-white/10 bg-white/5">Shipped</button>
+          <button data-filter="delivered" class="filter-btn px-3 py-1.5 rounded-full border border-white/10 bg-white/5">Delivered</button>
+        </div>
+      </div>
+      <div id="history-list" class="mt-4 space-y-4"></div>
+      <section class="mt-6">
+        <div class="rounded-2xl bg-gradient-to-b from-brand-soft to-brand/80 border border-white/10 p-4">
+          <h3 class="font-semibold">Need support?</h3>
+          <p class="text-sm text-white/70">DM us on IG @hypeout or email support@hypeout.dev. Returns within 14 days for unworn items.</p>
+        </div>
+      </section>
+    </section>
+
+    <!-- ============== TOTAL SPEND (your minimal KPI) ============== -->
+    <section id="view-spend" class="mt-6 hidden">
+      <div class="flex items-end justify-between gap-3">
+        <div>
+          <h1 class="text-2xl font-extrabold">Total Spend</h1>
+          <p class="text-sm text-white/70">Super minimal — focus on your spend.</p>
+        </div>
+        <div class="flex items-center gap-2 text-xs">
+          <button class="range-btn px-3 py-1.5 rounded-full border border-white/10 bg-white/5" data-range="all">All-time</button>
+          <button class="range-btn px-3 py-1.5 rounded-full border border-white/10 bg-white/5" data-range="2025">2025</button>
+        </div>
+      </div>
+
+      <div class="mt-4 rounded-2xl bg-gradient-to-b from-brand-soft to-brand/80 border border-white/10 p-5 shadow-frost">
+        <div class="flex items-center justify-between">
           <div>
-            <h1 class="text-xl sm:text-2xl font-bold">Order Confirmed!</h1>
-            <p class="text-sm text-white/70">Thanks! Your order <span class="font-semibold text-white">#HYP-37862</span> is on its way. 🎄</p>
+            <p class="text-xs text-white/70">Total Spend</p>
+            <p id="kpiTotal" class="text-4xl font-black tracking-tight mt-1">RM 0.00</p>
+          </div>
+          <div class="grid gap-1 justify-items-end text-right">
+            <span class="chip">Orders <b id="kpiOrders">0</b></span>
+            <span class="chip">AOV <b id="kpiAov">RM 0.00</b></span>
           </div>
         </div>
-        <div class="mt-4 grid grid-cols-2 gap-3 text-xs">
-          <div class="rounded-lg bg-black/30 p-3 border border-white/10">
-            <p class="text-white/60">Estimated arrival</p>
-            <p class="mt-0.5 text-white font-semibold">Nov 12–14</p>
+        <div class="mt-4 grid grid-cols-2 gap-2 text-sm">
+          <div class="rounded-xl bg-white/5 border border-white/10 p-3">
+            <div class="flex items-center justify-between">
+              <span class="text-white/70">Delivered</span>
+              <span class="text-xs chip" style="border-color:#7af52b66">✓</span>
+            </div>
+            <p id="kpiDeliveredSpend" class="mt-1 text-lg font-bold text-brand-accent">RM 0.00</p>
           </div>
-          <div class="rounded-lg bg-black/30 p-3 border border-white/10">
-            <p class="text-white/60">Tracking</p>
-            <p class="mt-0.5 text-white font-semibold">HYPX 4 412 541</p>
+          <div class="rounded-xl bg-white/5 border border-white/10 p-3">
+            <div class="flex items-center justify-between">
+              <span class="text-white/70">Shipped</span>
+              <span class="text-xs chip" style="border-color:#e6343466">⛟</span>
+            </div>
+            <p id="kpiShippedSpend" class="mt-1 text-lg font-bold">RM 0.00</p>
           </div>
         </div>
       </div>
-      <!-- garland edge -->
-      <div class="absolute -top-1 inset-x-0 h-1 bg-gradient-to-r from-brand-red via-brand-gold to-brand-green opacity-70"></div>
-    </section>
 
-    <!-- ITEMS（保留并恢复你的原始 Items） -->
-    <section class="mt-6">
-      <h2 class="text-lg font-semibold mb-3">Items</h2>
-      <div class="space-y-3">
-        <!-- Supreme Playboi Carti Tee Black (FW25) -->
-        <article class="flex gap-3 rounded-xl bg-white/5 border border-white/10 p-3">
-          <img src="https://r2.fivemanage.com/INqJLuvqvnMaDIlxPrNvZ/PlayboiCartiTee-Front.png" alt="Cap" class="h-24 w-24 rounded-lg object-cover">
-          <div class="flex-1 min-w-0">
-            <div class="flex items-start justify-between gap-2">
-              <div class="min-w-0 pr-2">
-                <p class="font-medium clamp-2">Supreme Playboi Carti Tee Black (FW25)</p>
-                <p class="text-xs text-white/60 mt-1">Size: M · Qty 1</p>
-                <p class="text-xs text-white/60">SKU: FW25T50</p>
-              </div>
-              <div class="text-right shrink-0 w-28">
-                <span class="text-sm text-white/50 line-through block">RM 699</span>
-                <span class="text-lg font-semibold text-brand-accent block">RM 420</span>
-              </div>
-            </div>
-            <div class="mt-2 flex gap-2">
-              <button class="text-xs px-2.5 py-1 rounded-md bg-white/10 hover:bg-white/15 border border-white/10 frost-btn">Track</button>
-              <button class="text-xs px-2.5 py-1 rounded-md bg-white/5 hover:bg-white/10 border border-white/10">Return</button>
-            </div>
-          </div>
-        </article>
+      <div class="mt-4 rounded-2xl bg-white/5 border border-white/10 p-4">
+        <div class="flex items-center justify-between">
+          <h3 class="font-semibold">Orders</h3>
+          <button id="exportCsv" class="text-xs px-3 py-1.5 rounded-md bg-white text-brand font-semibold frost-btn">Export CSV</button>
+        </div>
+        <div class="mt-3 overflow-hidden rounded-xl border border-white/10">
+          <table class="w-full text-sm">
+            <thead class="bg-white/5 text-white/70">
+              <tr>
+                <th class="text-left px-3 py-2">Order #</th>
+                <th class="text-left px-3 py-2">Date</th>
+                <th class="text-left px-3 py-2">Status</th>
+                <th class="text-right px-3 py-2">Total</th>
+              </tr>
+            </thead>
+            <tbody id="ordersBody" class="divide-y divide-white/10"></tbody>
+          </table>
+        </div>
+      </div>
 
-        <!-- Acne Studios Loose Fit Jeans - 2006 (Mid Blue) -->
-        <article class="flex gap-3 rounded-xl bg-white/5 border border-white/10 p-3">
-          <img src="https://www.acnestudios.com/dw/image/v2/AAXV_PRD/on/demandware.static/-/Sites-acne-product-catalog/default/dw3ee074fe/images/BK/BK0659-/2000x/BK0659-AUZ_FLAT.jpg?sw=560&sh=840" alt="Tee" class="h-24 w-24 rounded-lg object-cover">
-          <div class="flex-1 min-w-0">
-            <div class="flex items-start justify-between gap-2">
-              <div class="min-w-0 pr-2">
-                <p class="font-medium clamp-2">Acne Studios Loose Fit Jeans - 2006 (Mid Blue)</p>
-                <p class="text-xs text-white/60 mt-1">Size: 42 · Qty 1</p>
-                <p class="text-xs text-white/60">SKU: BK0659-AUZ</p>
-              </div>
-              <div class="text-right shrink-0 w-28">
-                <span class="text-sm text-white/50 line-through block">RM 5.999</span>
-                <span class="text-lg font-semibold text-brand-accent block">RM 3,888</span>
-              </div>
-            </div>
-            <div class="mt-2 flex gap-2">
-              <button class="text-xs px-2.5 py-1 rounded-md bg-white/10 hover:bg-white/15 border border-white/10 frost-btn">Track</button>
-              <button class="text-xs px-2.5 py-1 rounded-md bg-white/5 hover:bg-white/10 border border-white/10">Return</button>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- SUMMARY（保持你的数值） -->
-    <section class="mt-6">
-      <h2 class="text-lg font-semibold mb-3">Order Summary</h2>
-      <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
-        <dl class="text-sm space-y-2">
-          <div class="flex justify-between"><dt class="text-white/70">Subtotal</dt><dd>RM 4,308.00</dd></div>
-          <div class="flex justify-between"><dt class="text-white/70">Shipping</dt><dd>RM 15.40</dd></div>
-          <div class="flex justify-between"><dt class="text-white/70">Tax</dt><dd>RM 0.00</dd></div>
-          <div class="border-t border-white/10 my-2"></div>
-          <div class="flex justify-between text-base font-semibold"><dt>Total</dt><dd>RM 4,323.40</dd></div>
-        </dl>
-      </div>
-    </section>
-
-    <!-- ADDRESS / PAYMENT（保留） -->
-    <section class="mt-6 grid gap-3 sm:grid-cols-2">
-      <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
-        <h3 class="font-semibold mb-1">Shipping to</h3>
-        <p class="text-sm text-white/80">Chew Yi Sheng</p>
-        <p class="text-sm text-white/60">Unit B-19-01, Cormar Suites</p>
-        <p class="text-sm text-white/60">Kuala Lumpur, MY</p>
-        <p class="text-sm text-white/60">+60 11-2817 5596</p>
-      </div>
-      <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
-        <h3 class="font-semibold mb-1">Paid with</h3>
-        <p class="text-sm text-white/80">Visa •••• 8993</p>
-        <p class="text-sm text-white/60">Transaction ID: 20251105HLBBMYKL0101</p>
-        <p class="text-sm text-white/60">Date: Nov 5, 2025</p>
-      </div>
-    </section>
-
-    <!-- SUPPORT（保留） -->
-    <section class="mt-6">
-      <div class="rounded-2xl bg-gradient-to-b from-brand-soft to-brand/80 border border-white/10 p-4">
-        <h3 class="font-semibold">Need support?</h3>
-        <p class="text-sm text-white/70">DM us on IG @hypeout or email support@hypeout.dev. Returns within 14 days for unworn items.</p>
-      </div>
+      <section class="mt-6">
+        <div class="rounded-2xl bg-gradient-to-b from-brand-soft to-brand/80 border border-white/10 p-4">
+          <h3 class="font-semibold">Need support?</h3>
+          <p class="text-sm text-white/70">DM us on IG @hypeout or email support@hypeout.dev. Returns within 14 days for unworn items.</p>
+        </div>
+      </section>
     </section>
   </main>
 
-  <!-- Footer CTA（加霜感） -->
+  <!-- Footer CTA -->
   <div class="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-brand/95 backdrop-blur px-4 py-3">
     <div class="max-w-screen-md mx-auto flex items-center gap-3">
-      <a href="#" class="flex-1 text-center px-4 py-3 rounded-xl bg-white text-brand font-semibold shadow-lg frost-btn">🎄 Continue Shopping</a>
-      <a href="#" class="px-4 py-3 rounded-xl border border-white/20 text-white/90 frost-btn">⛄ Download Receipt (PDF)</a>
+      <a href="#" class="flex-1 text-center px-4 py-3 rounded-xl bg-white text-brand font-semibold shadow-lg frost-btn" id="footer-left">🎄 Continue Shopping</a>
+      <a href="#" class="px-4 py-3 rounded-xl border border-white/20 text-white/90 frost-btn" id="footer-right">⛄ Download (PDF)</a>
     </div>
   </div>
 
   <script>
-    // iOS Safari 识别：仅在该环境下应用“长截图防偏色”样式
+    // Helpers
+    const $ = (s, r=document)=> r.querySelector(s);
+    const $$ = (s, r=document)=> Array.from(r.querySelectorAll(s));
+    const fmtMYR = (n)=> 'RM ' + Number(n).toLocaleString('en-MY', {minimumFractionDigits:2, maximumFractionDigits:2});
+    const parseDate = (s)=> new Date(s + 'T00:00:00');
+
+    // iOS Safari 识别（长截图颜色修正）
     (function(){
       const ua = navigator.userAgent || '';
       const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -242,16 +377,15 @@
       if(isIOS && isSafari){ document.documentElement.classList.add('ios-fix'); }
     })();
 
-    // 主题切换（浅色时隐藏渐变层）
-    const btn = document.getElementById('themeBtn');
-    btn.addEventListener('click',()=>{
+    // 主题切换
+    $('#themeBtn').addEventListener('click',()=>{
       document.documentElement.classList.toggle('light');
       const light = document.documentElement.classList.contains('light');
       document.body.className = light ? 'min-h-screen bg-white text-gray-900' : 'min-h-screen bg-brand text-white';
     });
 
-    // ❄️ Snow generator（轻量）
-    const snowLayer = document.getElementById('snow');
+    // 雪花控制
+    const snowLayer = $('#snow');
     const snowChars = ['❄','✦','✼','✽'];
     function spawnSnow(){
       const el = document.createElement('i');
@@ -263,9 +397,266 @@
       snowLayer.appendChild(el);
       setTimeout(()=> el.remove(), 10000);
     }
-    const timer = setInterval(spawnSnow, 120);
+    let snowTimer = null;
+    function applySnow(enabled){
+      if(enabled){ if(!snowTimer) snowTimer = setInterval(spawnSnow, 120); }
+      else { clearInterval(snowTimer); snowTimer = null; }
+    }
 
-    // 如需关闭雪花，可注释上面的 setInterval 或在某个按钮上绑定 clearInterval(timer)
+    // Brand & footer from CONFIG
+    function applyBrand(){
+      $('#brand-left').textContent = CONFIG.site.brandTextLeft || 'HYPE';
+      $('#brand-right').textContent = CONFIG.site.brandTextRight || 'ØUT';
+      $('#footer-left').textContent  = CONFIG.site.footerLeftBtnText || '🎄 Continue Shopping';
+      $('#footer-right').textContent = CONFIG.site.footerRightBtnText || '⛄ Download (PDF)';
+      applySnow(!!CONFIG.site.showSnow);
+    }
+
+    // ===== Confirm View =====
+    function getOrderById(id){ return CONFIG.orders.find(o=> o.id===id); }
+    function renderConfirm(orderId){
+      const order = getOrderById(orderId) || getOrderById(CONFIG.confirm.defaultOrderId) || CONFIG.orders[0];
+      if(!order) return;
+      $('#confirm-sub').innerHTML = `Thanks! Your order <span class="font-semibold text-white">#${order.id}</span> is on its way. 🎄`;
+      $('#confirm-eta').textContent = order.eta || (order.status==='delivered' ? (order.deliveredAt ? `Delivered ${order.deliveredAt}`:'Delivered') : '—');
+      $('#confirm-tracking').textContent = order.tracking || '—';
+
+      $('#confirm-items').innerHTML = (order.items||[]).map(it=>`
+        <article class="flex gap-3 rounded-xl bg-white/5 border border-white/10 p-3">
+          <img src="${it.img}" alt="item" class="h-24 w-24 rounded-lg object-cover">
+          <div class="flex-1 min-w-0">
+            <div class="flex items-start justify-between gap-2">
+              <div class="min-w-0 pr-2">
+                <p class="font-medium clamp-2">${it.title}</p>
+                <p class="text-xs text-white/60 mt-1">Size: ${it.size||'-'} · Qty ${it.qty||1}</p>
+                ${it.sku?`<p class="text-xs text-white/60">SKU: ${it.sku}</p>`:''}
+              </div>
+              <div class="text-right shrink-0 w-28">
+                ${it.compareAt ? `<span class="text-sm text-white/50 line-through block">${fmtMYR(it.compareAt)}</span>`:''}
+                <span class="text-lg font-semibold text-brand-accent block">${fmtMYR(it.price)}</span>
+              </div>
+            </div>
+            <div class="mt-2 flex gap-2">
+              ${order.tracking ? `<button class="text-xs px-2.5 py-1 rounded-md bg-white/10 hover:bg-white/15 border border-white/10 frost-btn">Track</button>`:''}
+              <button class="text-xs px-2.5 py-1 rounded-md bg-white/5 hover:bg-white/10 border border-white/10">Return</button>
+            </div>
+          </div>
+        </article>
+      `).join('');
+
+      const s = order.summary || {subtotal:0, shipping:0, tax:0, total:order.total};
+      $('#confirm-summary').innerHTML = `
+        <dl class="text-sm space-y-2">
+          <div class="flex justify-between"><dt class="text-white/70">Subtotal</dt><dd>${fmtMYR(s.subtotal)}</dd></div>
+          <div class="flex justify-between"><dt class="text-white/70">Shipping</dt><dd>${fmtMYR(s.shipping)}</dd></div>
+          <div class="flex justify-between"><dt class="text-white/70">Tax</dt><dd>${fmtMYR(s.tax||0)}</dd></div>
+          <div class="border-t border-white/10 my-2"></div>
+          <div class="flex justify-between text-base font-semibold"><dt>Total</dt><dd>${fmtMYR(s.total)}</dd></div>
+        </dl>`;
+
+      // Address & Payment
+      $('#confirm-name').textContent = CONFIG.user.name;
+      $('#confirm-address').innerHTML = (CONFIG.user.addressLines||[]).map(x=>`<p>${x}</p>`).join('');
+      $('#confirm-phone').textContent = CONFIG.user.phone || '';
+      $('#confirm-card').textContent = CONFIG.payment.cardMasked || '';
+      $('#confirm-txn').textContent = `Transaction ID: ${CONFIG.payment.txnId || '-'}`;
+      $('#confirm-date').textContent = `Date: ${CONFIG.payment.date || '-'}`;
+    }
+
+    // ===== History View =====
+    function cardForOrder(o){
+      const statusColor = o.status==='delivered' ? '#7af52b' : '#7af52b';
+      const isShipped = o.status==='shipped';
+      return `
+      <article class="order-card rounded-2xl ${isShipped?'bg-gradient-to-b from-brand-soft to-brand/80 shadow-frost':'bg-white/5'} border border-white/10" data-status="${o.status}">
+        <div class="p-4 sm:p-5">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="min-w-0">
+              <div class="flex items-center gap-2 text-xs text-white/70">
+                <span class="status-dot" style="background:${statusColor}"></span>
+                <span class="uppercase tracking-wide">${o.status.charAt(0).toUpperCase()+o.status.slice(1)}</span>
+              </div>
+              <h2 class="mt-1 text-lg font-semibold">Order #${o.id}</h2>
+              <p class="text-xs text-white/60">${o.status==='delivered' ? `Delivered: ${o.deliveredAt || '—'} · Placed: ${o.date}` : `Placed: ${o.date} · ETA: ${o.eta || '—'}`}</p>
+            </div>
+            <div class="text-right">
+              <p class="text-sm text-white/60">Total</p>
+              <p class="text-xl font-bold text-brand-accent">${fmtMYR(o.total)}</p>
+            </div>
+          </div>
+
+          <div class="mt-3 flex gap-2">
+            ${(o.items||[]).slice(0,2).map(i=>`<img class="h-14 w-14 rounded-lg border border-white/10 object-cover" src="${i.img}" alt="item"/>`).join('')}
+          </div>
+
+          <div class="mt-3 flex items-center gap-2">
+            ${o.tracking?`<a href="#confirm?id=${o.id}" class="text-xs px-3 py-1.5 rounded-md bg-white text-brand font-semibold frost-btn">Track</a>`:''}
+            <button class="toggle-btn text-xs px-3 py-1.5 rounded-md border border-white/20 frost-btn" aria-expanded="false">View details</button>
+            <a href="#confirm?id=${o.id}" class="text-xs px-3 py-1.5 rounded-md border border-white/20">Open Confirm</a>
+          </div>
+        </div>
+
+        <div class="details hidden border-t border-white/10 p-4 sm:p-5">
+          <ol class="flex items-center justify-between gap-2 text-xs">
+            <li class="flex-1 flex items-center gap-2"><span class="status-dot" style="background:#7af52b"></span> Placed</li>
+            <li class="flex-1 flex items-center gap-2"><span class="status-dot" style="background:#7af52b"></span> Confirmed</li>
+            <li class="flex-1 flex items-center gap-2"><span class="status-dot" style="background:#7af52b"></span> Shipped</li>
+            <li class="flex-1 flex items-center gap-2 ${o.status==='delivered'?'':'opacity-50'}"><span class="status-dot" style="background:${o.status==='delivered'?'#7af52b':'#666'}"></span> Delivered</li>
+          </ol>
+
+          <div class="mt-4 grid gap-3 sm:grid-cols-2">
+            <div class="rounded-xl bg-white/5 border border-white/10 p-3">
+              <h3 class="font-semibold mb-2">Items</h3>
+              <div class="space-y-3">
+                ${(o.items||[]).map(it=>`
+                  <div class="flex gap-3">
+                    <img src="${it.img}" class="h-16 w-16 rounded-lg object-cover border border-white/10" alt="item"/>
+                    <div class="min-w-0 flex-1">
+                      <p class="text-sm font-medium clamp-2">${it.title}</p>
+                      <p class="text-xs text-white/60">Size ${it.size||'-'} · Qty ${it.qty||1}${it.sku?` · SKU ${it.sku}`:''}</p>
+                    </div>
+                    <p class="text-sm font-semibold text-brand-accent">${fmtMYR(it.price)}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+            <div class="grid gap-3">
+              <div class="rounded-xl bg-white/5 border border-white/10 p-3">
+                <h3 class="font-semibold mb-1">${o.status==='delivered'?'Delivered to':'Shipping'}</h3>
+                ${o.status==='delivered' ? `
+                  <p class="text-sm text-white/80">${CONFIG.user.name}</p>
+                  ${(CONFIG.user.addressLines||[]).map(x=>`<p class="text-sm text-white/60">${x}</p>`).join('')}
+                ` : `
+                  <p class="text-sm text-white/70">Courier: ${o.courier||'-'}</p>
+                  <p class="text-sm">Tracking: <span class="font-semibold">${o.tracking||'-'}</span></p>
+                  <p class="text-xs text-white/60">ETA ${o.eta||'-'}</p>
+                `}
+              </div>
+              <div class="rounded-xl bg-white/5 border border-white/10 p-3">
+                <h3 class="font-semibold mb-1">Summary</h3>
+                <dl class="text-sm space-y-1">
+                  <div class="flex justify-between"><dt class="text-white/70">Subtotal</dt><dd>${fmtMYR((o.summary&&o.summary.subtotal)||o.total)}</dd></div>
+                  <div class="flex justify-between"><dt class="text-white/70">Shipping</dt><dd>${fmtMYR((o.summary&&o.summary.shipping)||0)}</dd></div>
+                  <div class="border-t border-white/10 my-1"></div>
+                  <div class="flex justify-between font-semibold"><dt>Total</dt><dd>${fmtMYR((o.summary&&o.summary.total)||o.total)}</dd></div>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>`;
+    }
+    function renderHistory(){
+      const list = $('#history-list');
+      list.innerHTML = CONFIG.orders.map(cardForOrder).join('');
+      // toggle details
+      $$('#history-list .toggle-btn').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          const card = btn.closest('.order-card');
+          const details = card.querySelector('.details');
+          const expanded = btn.getAttribute('aria-expanded')==='true';
+          btn.setAttribute('aria-expanded', String(!expanded));
+          details.classList.toggle('hidden');
+          btn.textContent = expanded ? 'View details' : 'Hide details';
+        });
+      });
+      // filters
+      $$('#view-history .filter-btn').forEach(fb=>{
+        fb.addEventListener('click',()=>{
+          const val = fb.dataset.filter;
+          $$('#view-history .filter-btn').forEach(b=> b.classList.remove('ring-2','ring-brand-accent'));
+          fb.classList.add('ring-2','ring-brand-accent');
+          $$('#history-list .order-card').forEach(card=>{
+            if(val==='all') card.classList.remove('hidden');
+            else card.classList.toggle('hidden', card.dataset.status !== val);
+          });
+        });
+      });
+    }
+
+    // ===== Spend View =====
+    function inRange(d, range){ return range==='all' ? true : d.getFullYear()===2025; }
+    function renderSpend(range='all'){
+      const rows = CONFIG.orders.filter(o=> inRange(parseDate(o.date), range));
+      const total = rows.reduce((a,b)=> a+b.total, 0);
+      const orders = rows.length;
+      const delSpend = rows.filter(o=> o.status==='delivered').reduce((a,b)=> a+b.total, 0);
+      const shpSpend = rows.filter(o=> o.status==='shipped').reduce((a,b)=> a+b.total, 0);
+
+      $('#kpiTotal').textContent = fmtMYR(total);
+      $('#kpiOrders').textContent = String(orders);
+      $('#kpiAov').textContent = fmtMYR(orders? total/orders : 0);
+      $('#kpiDeliveredSpend').textContent = fmtMYR(delSpend);
+      $('#kpiShippedSpend').textContent   = fmtMYR(shpSpend);
+
+      const body = $('#ordersBody');
+      body.innerHTML = rows.map(o=>`<tr>
+        <td class="px-3 py-2">#${o.id}</td>
+        <td class="px-3 py-2">${o.date}</td>
+        <td class="px-3 py-2"><span class="chip" style="border-color:${o.status==='delivered'?'#7af52b66':'#e6343466'}">${o.status}</span></td>
+        <td class="px-3 py-2 text-right font-semibold text-brand-accent">${fmtMYR(o.total)}</td>
+      </tr>`).join('');
+
+      // Range switch
+      $$('#view-spend .range-btn').forEach(btn=>{
+        btn.onclick = ()=>{
+          $$('#view-spend .range-btn').forEach(b=> b.classList.remove('ring-2','ring-brand-accent'));
+          btn.classList.add('ring-2','ring-brand-accent');
+          renderSpend(btn.dataset.range);
+        };
+      });
+
+      // Export CSV
+      $('#exportCsv').onclick = ()=>{
+        const header = ['order_id','date','status','total'];
+        const lines = [header.join(',')];
+        CONFIG.orders.forEach(o=> lines.push([o.id,o.date,o.status,o.total].join(',')));
+        const blob = new Blob([lines.join('\n')], {type:'text/csv'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href = url; a.download = 'hypeout-orders.csv'; a.click();
+        URL.revokeObjectURL(url);
+      };
+
+      // default active ring
+      const active = $(`#view-spend .range-btn[data-range="${range}"]`);
+      if(active){ $$('#view-spend .range-btn').forEach(b=> b.classList.remove('ring-2','ring-brand-accent')); active.classList.add('ring-2','ring-brand-accent'); }
+    }
+
+    // ===== Tiny hash router =====
+    function show(id){
+      $('#view-confirm').classList.add('hidden');
+      $('#view-history').classList.add('hidden');
+      $('#view-spend').classList.add('hidden');
+      $(id).classList.remove('hidden');
+      // nav ring
+      $$('.nav-btn').forEach(n=> n.classList.remove('ring-2','ring-brand-accent'));
+      const link = document.querySelector(`a[href="${location.hash.split('?')[0]}"]`);
+      if(link) link.classList.add('ring-2','ring-brand-accent');
+    }
+
+    function route(){
+      applyBrand();
+      const hash = location.hash || '#confirm';
+      const [base, qs] = hash.split('?');
+      if(base==='#confirm'){
+        const params = new URLSearchParams(qs||'');
+        const id = params.get('id') || CONFIG.confirm.defaultOrderId || (CONFIG.orders[0] && CONFIG.orders[0].id);
+        renderConfirm(id);
+        show('#view-confirm');
+      } else if(base==='#history'){
+        renderHistory();
+        show('#view-history');
+      } else if(base==='#spend'){
+        renderSpend('all');
+        show('#view-spend');
+      } else {
+        location.hash = '#confirm';
+      }
+    }
+
+    window.addEventListener('hashchange', route);
+    // Init
+    route();
   </script>
 </body>
 </html>
