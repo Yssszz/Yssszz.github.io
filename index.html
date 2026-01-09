@@ -1,305 +1,262 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!doctype html>
+<html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My CS2 Best Duo - The Carry & The Entry</title>
-    <style>
-        /* ==================== 基础设置 ==================== */
-        :root {
-            --cs-orange: #ffb142; /* 更加鲜亮的金色 */
-            --cs-blue: #5d79ae;
-            --bg-dark: #141414;
-            --bg-card: #1f1f1f;
-            --text-light: #ffffff;
-            --text-gray: #b0b0b0;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HYPEØUT — CNY Drop Secured</title>
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Microsoft YaHei', sans-serif; }
-        
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-            background-image: radial-gradient(circle at 50% 0%, #2a2a2a 0%, #141414 80%);
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: '#0f0505', /* 更深邃的红黑色背景 */
+              soft: '#1a0b0b',
+              accent: '#ffbd2e', /* 新年金 */
+              red: '#e63434',    /* 潮流红 */
+              crimson: '#ff0033',
+              gold: '#f5d678'
+            }
+          },
+          boxShadow: {
+            // 金色光晕
+            glow: '0 0 0 1px rgba(255,189,46,0.3), 0 10px 40px rgba(255,189,46,0.15)',
+            // 红色氛围
+            lucky: '0 0 25px rgba(230,52,52,0.15)',
+            card: '0 0 0 1px rgba(255,255,255,0.1), 0 20px 40px -10px rgba(0,0,0,0.5)'
+          },
+          fontFamily: {
+            inter: ["Inter", "system-ui", "-apple-system", "sans-serif"]
+          },
+          animation: {
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          }
         }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
 
-        .container { max-width: 1000px; width: 100%; padding: 40px 20px; }
+  <style>
+    :root{ color-scheme: dark; }
+    html,body{ font-family: 'Inter', system-ui, sans-serif; }
+    body{ background-color:#0f0505; color: white; overflow-x: hidden; }
+    
+    /* 背景特效：红金氛围 */
+    #bgfx{ position:fixed; inset:0; z-index:-2; pointer-events:none;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 0, 50, 0.15), transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 189, 46, 0.1), transparent 50%),
+        radial-gradient(ellipse at center, rgba(20, 5, 5, 1), transparent 100%);
+    }
+    
+    /* 掉落特效容器 */
+    #falling-layer{ position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden; }
+    .falling-item{ position:absolute; top:-20px; font-size:16px; opacity:0.8; animation:fall linear forwards; filter: drop-shadow(0 0 5px rgba(255,215,0,0.3)); }
+    @keyframes fall{ 
+      0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } 
+    }
 
-        /* ==================== 头部 ==================== */
-        header { text-align: center; margin-bottom: 40px; }
-        .sub-title { color: var(--cs-blue); letter-spacing: 3px; font-weight: bold; font-size: 0.9rem; }
-        h1 {
-            font-size: 3.5rem; margin: 5px 0; text-transform: uppercase; font-style: italic; font-weight: 900;
-            background: linear-gradient(90deg, #fff 10%, var(--cs-orange) 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .cn-desc { color: var(--text-gray); font-size: 1rem; }
+    /* 玻璃拟态卡片 */
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
 
-        /* ==================== VS 对比区域 ==================== */
-        .vs-section {
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 30px;
-            margin-bottom: 40px;
-            border: 1px solid #333;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            position: relative;
-            overflow: hidden;
-        }
+    .btn-primary {
+      background: linear-gradient(135deg, #ffbd2e 0%, #f5d678 100%);
+      color: #0f0505;
+      font-weight: 800;
+      box-shadow: 0 4px 20px rgba(255, 189, 46, 0.3);
+      transition: transform 0.2s;
+    }
+    .btn-primary:active { transform: scale(0.98); }
 
-        .vs-section::before {
-            content: "GAP"; 
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%); font-size: 10rem; font-weight: 900;
-            color: rgba(255,255,255,0.03); pointer-events: none;
-        }
-
-        .vs-header { text-align: center; margin-bottom: 30px; position: relative; z-index: 1; }
-        .vs-header h2 { font-size: 1.8rem; font-style: italic; }
-
-        .players-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; position: relative; z-index: 1; padding: 0 20px; }
-        .player-info { text-align: center; width: 140px; } 
-        
-        .player-avatar {
-            width: 90px; height: 90px; border-radius: 50%; margin: 0 auto 10px;
-            display: flex; align-items: center; justify-content: center;
-            border: 3px solid #333;
-            position: relative;
-            overflow: visible; 
-        }
-
-        .player-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-            display: block;
-        }
-        
-        /* 你的头像特效 */
-        .p-me .player-avatar { 
-            border-color: #fff; 
-            box-shadow: 0 0 25px rgba(255, 177, 66, 0.6); 
-        }
-        
-        /* MVP 标志 */
-        .mvp-badge {
-            position: absolute; bottom: -5px; right: -5px;
-            background: red; color: white; font-size: 0.7rem; padding: 2px 6px;
-            border-radius: 4px; font-weight: bold; transform: rotate(-10deg);
-            z-index: 10;
-        }
-
-        .p-him .player-avatar { border-color: var(--cs-blue); }
-        .player-name { font-weight: bold; font-size: 1.3rem; margin-top: 5px; }
-        .player-role { font-size: 0.9rem; color: var(--text-gray); margin-top: 4px; }
-        .crown-icon { font-size: 1.5rem; margin-bottom: 5px; display: block; text-shadow: 0 0 10px gold;}
-
-        .comparison-row { display: flex; align-items: center; margin-bottom: 18px; position: relative; z-index: 1; }
-        .comp-val { width: 70px; font-weight: bold; font-size: 1.2rem; }
-        
-        /* 你的数值颜色加强 */
-        .val-left { text-align: right; color: var(--cs-orange); text-shadow: 0 0 15px rgba(255, 177, 66, 0.5); font-size: 1.3rem; }
-        .val-right { text-align: left; color: #666; font-size: 1rem; }
-        
-        .comp-bar-area { flex: 1; margin: 0 20px; display: flex; flex-direction: column; justify-content: center; }
-        .comp-label { text-align: center; font-size: 0.8rem; color: #888; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
-        .bar-track { display: flex; height: 10px; background: #222; border-radius: 5px; overflow: hidden; }
-        
-        /* 颜色 */
-        .bar-left { background: linear-gradient(90deg, #e1b12c, #ffb142); height: 100%; box-shadow: 0 0 10px rgba(255,177,66,0.5); }
-        .bar-right { background-color: var(--cs-blue); height: 100%; opacity: 0.4; }
-        .bar-separator { width: 2px; background: #000; }
-
-        /* ==================== 地图区域 ==================== */
-        .section-title { font-size: 1.5rem; margin: 40px 0 20px; border-left: 4px solid var(--cs-blue); padding-left: 15px; }
-        .maps-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
-        .map-card {
-            height: 160px; border-radius: 12px; position: relative; overflow: hidden;
-            background-size: cover; background-position: center; background-color: #333;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4); transition: transform 0.3s;
-        }
-        .map-card:hover { transform: scale(1.03); }
-        .map-overlay {
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.95));
-            display: flex; flex-direction: column; justify-content: flex-end; padding: 15px;
-        }
-        .map-name { font-size: 1.4rem; font-weight: bold; text-transform: uppercase; }
-        .map-stats { font-size: 0.9rem; color: var(--cs-orange); font-weight: bold; }
-        .map-tag {
-            position: absolute; top: 10px; right: 10px;
-            background: var(--cs-orange); color: #000; font-weight: bold;
-            font-size: 0.75rem; padding: 3px 8px; border-radius: 4px;
-        }
-
-        /* 响应式 */
-        @media (max-width: 600px) {
-            h1 { font-size: 2.5rem; }
-            .players-row { padding: 0; }
-            .player-info { width: 90px; }
-            .player-avatar { width: 70px; height: 70px; }
-        }
-    </style>
+    /* 闪光文字 */
+    .text-glow { text-shadow: 0 0 20px rgba(255,189,46,0.5); }
+    
+    /* 图片容器光效 */
+    .item-stage {
+      background: radial-gradient(circle, rgba(255,189,46,0.1) 0%, transparent 70%);
+    }
+  </style>
 </head>
-<body>
 
-    <div class="container">
-        <header>
-            <div class="sub-title">CS2 STATS TRACKER</div>
-            <h1>Your CS2 Best Duo</h1>
-            <p class="cn-desc">最佳拍档：他在前面拉枪线，我在后面收割</p>
-        </header>
+<body class="min-h-screen flex flex-col">
+  <div id="bgfx"></div>
+  <div id="falling-layer"></div>
 
-        <!-- VS 区域 -->
-        <section class="vs-section">
-            <div class="vs-header">
-                <h2>数据对比 (Head to Head)</h2>
-                <p style="color:#666; font-size: 0.9rem;">谁才是真正的大哥？数据很残忍。</p>
-            </div>
+  <header class="fixed top-0 inset-x-0 z-50 border-b border-white/5 bg-[#0f0505]/80 backdrop-blur-md">
+    <div class="max-w-md mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="text-xl font-black tracking-tighter text-white">HYPE</span>
+        <span class="text-xl font-black tracking-tighter text-brand-accent">ØUT</span>
+      </div>
+      <div class="px-2 py-1 rounded border border-brand-red/30 bg-brand-red/10 text-[10px] font-bold tracking-widest text-brand-red uppercase">
+        CNY 2026
+      </div>
+    </div>
+  </header>
 
-            <div class="players-row">
-                <!-- 你的部分 -->
-                <div class="player-info p-me">
-                    <span class="crown-icon">👑</span>
-                    <div class="player-avatar">
-                        <img src="https://avatars.fastly.steamstatic.com/127ccb618304263840e8ad53d23daba3e278bbe8_full.jpg" alt="Me">
-                        <div class="mvp-badge">MVP</div>
-                    </div>
-                    <div class="player-name">我 (YOU)</div>
-                    <div class="player-role" style="color: var(--cs-orange); font-weight:bold;">通天代 / Smurf</div>
-                </div>
-                
-                <div style="font-size: 2rem; font-weight: 900; font-style: italic; color: #333;">VS</div>
-
-                <!-- Jakon 的部分 -->
-                <div class="player-info p-him">
-                    <span class="crown-icon" style="opacity: 0;">.</span>
-                    <div class="player-avatar">
-                        <img src="https://r2.fivemanage.com/INqJLuvqvnMaDIlxPrNvZ/8781fdaa7ec3e028ade8e51530881e43f9eaab6e_full.jpg" alt="Jakon">
-                    </div>
-                    <div class="player-name">Jakon</div>
-                    <!-- 修改：从挂件改为突破 -->
-                    <div class="player-role">突破 / Entry</div>
-                </div>
-            </div>
-
-            <!-- 1. Rating -->
-            <div class="comparison-row">
-                <div class="comp-val val-left">1.82</div>
-                <div class="comp-bar-area">
-                    <div class="comp-label">HLTV Rating 2.0</div>
-                    <div class="bar-track">
-                        <div class="bar-left" style="width: 78%;"></div>
-                        <div class="bar-separator"></div>
-                        <div class="bar-right" style="width: 22%;"></div>
-                    </div>
-                </div>
-                <div class="comp-val val-right">0.98</div>
-            </div>
-
-            <!-- 2. ADR -->
-            <div class="comparison-row">
-                <div class="comp-val val-left">118.5</div>
-                <div class="comp-bar-area">
-                    <div class="comp-label">ADR (场均伤害)</div>
-                    <div class="bar-track">
-                        <div class="bar-left" style="width: 70%;"></div>
-                        <div class="bar-separator"></div>
-                        <div class="bar-right" style="width: 30%;"></div>
-                    </div>
-                </div>
-                <div class="comp-val val-right">72.0</div>
-            </div>
-
-            <!-- 3. K/D Ratio -->
-            <div class="comparison-row">
-                <div class="comp-val val-left">2.45</div>
-                <div class="comp-bar-area">
-                    <div class="comp-label">K/D Ratio</div>
-                    <div class="bar-track">
-                        <div class="bar-left" style="width: 80%;"></div>
-                        <div class="bar-separator"></div>
-                        <div class="bar-right" style="width: 20%;"></div>
-                    </div>
-                </div>
-                <div class="comp-val val-right">0.92</div>
-            </div>
-
-            <!-- 4. 爆头率 -->
-            <div class="comparison-row">
-                <div class="comp-val val-left">72%</div>
-                <div class="comp-bar-area">
-                    <div class="comp-label">Headshot %</div>
-                    <div class="bar-track">
-                        <div class="bar-left" style="width: 65%;"></div>
-                        <div class="bar-separator"></div>
-                        <div class="bar-right" style="width: 35%;"></div>
-                    </div>
-                </div>
-                <div class="comp-val val-right">45%</div>
-            </div>
-
-        </section>
-
-        <!-- 地图数据 (图片已更新) -->
-        <div class="section-title">地图统计 (Map Stats)</div>
-        <section class="maps-container">
-            
-            <!-- 1. Dust 2 -->
-            <div class="map-card" style="background-image: url('https://r2.fivemanage.com/INqJLuvqvnMaDIlxPrNvZ/Csgo_dust2.jpg');">
-                <div class="map-tag">胜率 82%</div>
-                <div class="map-overlay">
-                    <div class="map-name">Dust II</div>
-                    <div class="map-stats">
-                        <span style="font-size: 1.1rem; color: #fff;">410 场</span>
-                        <br><span style="color: #ccc; font-weight: normal; font-size: 0.8rem;">我的练枪服，闭着眼打</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 2. Ancient -->
-            <div class="map-card" style="background-image: url('https://cs.money/ru/blog/wp-content/uploads/2025/01/cs2_ancient_a_site.jpg');">
-                <div class="map-overlay">
-                    <div class="map-name">Ancient</div>
-                    <div class="map-stats">
-                        <span style="color: #fff;">45 场</span> | 胜率: 58%
-                        <br><span style="color: #777; font-weight: normal; font-size: 0.8rem;">偶尔玩玩</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3. Mirage -->
-            <div class="map-card" style="background-image: url('https://r2.fivemanage.com/INqJLuvqvnMaDIlxPrNvZ/De_mirage_cs2.webp');">
-                <div class="map-overlay">
-                    <div class="map-name">Mirage</div>
-                    <div class="map-stats">
-                        <span style="color: #fff;">28 场</span> | 胜率: 51%
-                        <br><span style="color: #777; font-weight: normal; font-size: 0.8rem;">不熟</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 4. Nuke -->
-            <div class="map-card" style="background-image: url('https://r2.fivemanage.com/INqJLuvqvnMaDIlxPrNvZ/600px-CS2_Nuke_Outside.jpeg');">
-                <div class="map-overlay">
-                    <div class="map-name">Nuke</div>
-                    <div class="map-stats">
-                        <span style="color: #fff;">12 场</span> | 胜率: 35%
-                        <br><span style="color: #ff6b6b; font-weight: normal; font-size: 0.8rem;">Jakon 非要选，结果输了</span>
-                    </div>
-                </div>
-            </div>
-
-        </section>
-
-        <footer style="text-align: center; margin-top: 60px; color: #444; font-size: 0.8rem; padding-bottom: 20px;">
-            <p>CS2 Duo Tracker - Generated for The Global Elite Carry</p>
-        </footer>
+  <main class="flex-1 flex flex-col justify-center items-center px-4 pt-20 pb-24 w-full max-w-md mx-auto">
+    
+    <div class="mb-6 text-center animate-pulse-slow">
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-accent/30 bg-brand-accent/10 text-brand-accent text-xs font-bold uppercase tracking-widest shadow-glow">
+        <span class="w-1.5 h-1.5 rounded-full bg-brand-accent"></span>
+        Transaction Verified
+      </span>
     </div>
 
+    <div class="w-full relative group">
+      <div class="absolute -inset-0.5 bg-gradient-to-b from-brand-accent to-brand-red rounded-[2rem] opacity-30 blur-xl group-hover:opacity-50 transition duration-1000"></div>
+      
+      <div class="relative glass-panel rounded-[1.8rem] p-6 overflow-hidden shadow-card">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-accent to-transparent opacity-50"></div>
+
+        <div class="text-center mb-2">
+          <h1 class="text-3xl font-black italic text-white tracking-tight">GOT 'EM!!</h1>
+          <p class="text-sm text-white/50 font-medium">入手成功 · 恭喜发财</p>
+        </div>
+
+        <div class="item-stage aspect-square rounded-2xl flex items-center justify-center my-6 relative">
+          <div class="absolute inset-0 border border-white/5 rounded-2xl"></div>
+          
+          <img id="item-img" 
+               src="https://r2.fivemanage.com/INqJLuvqvnMaDIlxPrNvZ/PlayboiCartiTee-Front.png" 
+               class="w-[85%] h-[85%] object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)] transform transition hover:scale-105 duration-500"
+               alt="Product">
+               
+          <div class="absolute bottom-3 right-3 px-2 py-1 bg-black/60 backdrop-blur rounded text-[10px] text-white/80 border border-white/10 font-mono">
+            S Tier
+          </div>
+        </div>
+
+        <div class="space-y-1 text-center">
+          <h2 id="item-title" class="text-lg font-bold leading-tight line-clamp-2">Supreme Playboi Carti Tee</h2>
+          <p class="text-sm text-white/40 font-mono mt-1">Size: <span id="item-size" class="text-white">M</span> · SKU: <span id="item-sku">FW25-SUP</span></p>
+        </div>
+
+        <div class="mt-6 flex items-center justify-between bg-white/5 rounded-xl p-4 border border-white/5">
+          <div class="text-left">
+            <p class="text-[10px] text-white/40 uppercase tracking-wider">Total Paid</p>
+            <p id="item-price" class="text-xl font-bold text-brand-accent font-mono">RM 420.00</p>
+          </div>
+          <div class="text-right">
+             <p class="text-[10px] text-white/40 uppercase tracking-wider">Status</p>
+             <p class="text-sm font-semibold text-brand-red flex items-center gap-1 justify-end">
+               Shipping Soon <span class="text-xs">🚀</span>
+             </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="w-full mt-6 px-4">
+      <div class="flex justify-between text-xs text-white/30 font-mono mb-4">
+        <span>ORDER #<span id="order-id" class="text-white/60">HYP-88888</span></span>
+        <span id="order-date">2026-01-29</span>
+      </div>
+      
+      <div class="space-y-3">
+        <div class="flex gap-3 items-center p-3 rounded-xl bg-white/5 border border-white/5">
+          <div class="w-8 h-8 rounded-full bg-brand-accent/20 flex items-center justify-center text-brand-accent">
+            📍
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-xs text-white/40">Shipping to</p>
+            <p id="user-name" class="text-sm font-semibold text-white/90 truncate">Chew Yi Sheng</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <div class="fixed inset-x-0 bottom-0 z-40 p-4 bg-gradient-to-t from-[#0f0505] to-transparent">
+    <div class="max-w-md mx-auto grid grid-cols-2 gap-3">
+      <button class="px-4 py-3.5 rounded-xl border border-white/10 bg-black/40 backdrop-blur text-sm font-semibold text-white/70 hover:bg-white/10">
+        Share Flex 📸
+      </button>
+      <button class="btn-primary px-4 py-3.5 rounded-xl text-sm flex items-center justify-center gap-2">
+        <span>View Receipt</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // ================= 配置区域 (在这里修改) =================
+    const CONFIG = {
+      user: {
+        name: 'Chew Yi Sheng',
+        id: 'HYP-84721', // 订单号，搞个吉利的数字
+        date: 'Jan 9, 2026'
+      },
+      // 这次只显示一个单独的 Item (获得的那个好物)
+      drop: {
+        // 建议放一张高清图，去背的PNG最好看
+        title: 'Supreme Announcing Tee White (SS25)', 
+        brand: 'Supreme',
+        size: 'M',
+        sku: 'SS25T40',
+        price: 549.00,
+        img: 'https://r2.fivemanage.com/INqJLuvqvnMaDIlxPrNvZ/SupremeAnnouncingTeeWhite_SS25_-Front.png' // 这里的图片地址你可以换成任何你想要的
+      }
+    };
+
+    // ================= 逻辑代码 =================
+
+    // 1. 渲染内容
+    function render(){
+      const item = CONFIG.drop;
+      const user = CONFIG.user;
+
+      // 文本替换
+      document.getElementById('item-title').textContent = item.title;
+      document.getElementById('item-size').textContent = item.size;
+      document.getElementById('item-sku').textContent = item.sku;
+      document.getElementById('item-price').textContent = 'RM ' + item.price.toFixed(2);
+      document.getElementById('item-img').src = item.img;
+      
+      document.getElementById('order-id').textContent = user.id;
+      document.getElementById('order-date').textContent = user.date;
+      document.getElementById('user-name').textContent = user.name;
+    }
+
+    // 2. 新年掉落特效 (灯笼、红包、金币)
+    const layer = document.getElementById('falling-layer');
+    const icons = ['🧧', '🏮', '💰', '✨', '🍊']; 
+    
+    function spawnFall(){
+      const el = document.createElement('div');
+      el.className = 'falling-item';
+      el.textContent = icons[Math.floor(Math.random()*icons.length)];
+      el.style.left = Math.random() * 100 + 'vw';
+      // 随机大小和速度
+      const size = 14 + Math.random() * 20; 
+      el.style.fontSize = size + 'px';
+      el.style.animationDuration = (3 + Math.random() * 4) + 's'; // 3-7秒落下
+      
+      layer.appendChild(el);
+      
+      // 动画结束后移除
+      setTimeout(() => el.remove(), 7000);
+    }
+
+    // 启动
+    window.addEventListener('DOMContentLoaded', () => {
+      render();
+      setInterval(spawnFall, 400); // 每400ms掉落一个物体
+    });
+
+  </script>
 </body>
 </html>
