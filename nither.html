@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eason's Digital Portfolio</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rizmyabdulla/fontawesome-pro@main/releases/v7.2.0/css/all.css">
+
+    <style>
+        /* --- 1. 全局样式 & 变量 --- */
+        :root {
+            --primary: #00e701; /* 霓虹绿 */
+            --bg-dark: #1f1f1f;
+            --bg-card: #2a2a2a;
+            --text: #ffffff;
+            --transition: all 0.3s ease;
+        }
+
+        @font-face { font-family: "kick"; src: url(fonts/kick-font.ttf); }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text);
+            font-family: "kick", sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- 2. 导航栏 (Positioning 60%) --- */
+        nav {
+            width: 100%;
+            background: rgba(31, 31, 31, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            border-bottom: 3px solid var(--primary);
+            position: fixed;
+            top: 0; z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 1.8rem;
+            color: #666;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover { color: var(--primary); transform: scale(1.1); }
+        .logo { color: var(--primary); letter-spacing: 5px; font-weight: bold; font-size: 1.2rem; }
+
+        /* --- 3. Section 布局 (5个板块) --- */
+        section {
+            min-height: 100vh;
+            padding: 100px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .title {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            color: var(--primary);
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+
+        /* --- SECTION 1: HOME --- */
+        .home {
+            background: linear-gradient(135deg, #1a3d1a 0%, #1f1f1f 50%, #0c2b0c 100%);
+            background-size: 400% 400%;
+            animation: moveGradient 10s infinite alternate;
+        }
+        @keyframes moveGradient { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+
+        /* --- SECTION 2: ABOUT --- */
+        .about { background-color: var(--bg-dark); }
+        .about-card {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 20px;
+            border-left: 6px solid var(--primary);
+            max-width: 850px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .about-card img { width: 250px; border-radius: 15px; }
+        .about-info { flex: 1; text-align: left; }
+        .about-info h2 { font-size: 2rem; margin-bottom: 15px; }
+        .about-info p { font-family: sans-serif; color: #888; line-height: 1.8; }
+
+        /* --- SECTION 3: FOCUS (技术专注) --- */
+        .focus { background-color: #252525; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1100px;
+        }
+        .grid-item {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 15px;
+            border-bottom: 4px solid var(--primary);
+            transition: 0.3s;
+        }
+        .grid-item:hover { transform: translateY(-10px); }
+        .grid-item i { font-size: 3rem; color: var(--primary); margin-bottom: 20px; }
+
+        /* --- SECTION 4: DESIGN (设计逻辑 - 核心加分) --- */
+        .design { background-color: var(--bg-dark); }
+        .color-palette { display: flex; gap: 15px; justify-content: center; margin-top: 20px; }
+        .color-circle { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #444; }
+
+        /* --- SECTION 5: CONTACT --- */
+        .contact { background-color: #252525; }
+        .form-container { width: 100%; max-width: 600px; background: var(--bg-card); padding: 40px; border-radius: 20px; }
+        form { display: flex; flex-direction: column; gap: 15px; }
+        input, textarea { padding: 15px; background: #111; border: 1px solid #444; color: white; border-radius: 8px; outline: none; }
+        input:focus { border-color: var(--primary); }
+        .btn { background: var(--primary); padding: 15px; border: none; font-family: "kick"; cursor: pointer; font-size: 1.2rem; transition: 0.3s; }
+        .btn:hover { background: white; box-shadow: 0 0 20px var(--primary); }
+
+        /* --- 4. 响应式适配 (Responsiveness 60%) --- */
+        @media (max-width: 768px) {
+            .nav-container { padding: 0 10px; }
+            .nav-links i { font-size: 1.5rem; }
+            .logo { font-size: 0.8rem; letter-spacing: 2px; }
+            .about-card { flex-direction: column; text-align: center; }
+            .about-info { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="#home"><i class="fa-duotone fa-house"></i></a>
+                <a href="#about"><i class="fa-duotone fa-user"></i></a>
+            </div>
+            <a href="#home" style="text-decoration: none;"><div class="logo">EASON.DEV</div></a>
+            <div class="nav-links">
+                <a href="#focus"><i class="fa-duotone fa-microchip"></i></a>
+                <a href="#design"><i class="fa-duotone fa-palette"></i></a>
+                <a href="#contact"><i class="fa-duotone fa-envelope"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="home">
+        <h1 class="title">FUTURE SOFTWARE ENGINEER</h1>
+        <p style="letter-spacing: 5px; color: var(--primary);">EST. 2026</p>
+    </section>
+
+    <section id="about" class="about">
+        <h1 class="title">ABOUT ME</h1>
+        <div class="about-card">
+            <img src="assets/IMG_0144.jpg" alt="Eason">
+            <div class="about-info">
+                <h2>Chew Yi Sheng</h2>
+                <p>
+                    我是 Forward College 的软件工程系学生。我的目标是将高效率的代码与现代时尚审美相结合。
+                    我深耕于 FiveM 的 Lua 脚本开发，并热衷于探索 UI 设计的可能性。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="focus" class="focus">
+        <h1 class="title">TECHNICAL FOCUS</h1>
+        <div class="grid">
+            <div class="grid-item">
+                <i class="fa-duotone fa-gamepad-modern"></i>
+                <h3>FiveM Modding</h3>
+                <p style="font-family: sans-serif; font-size: 0.9rem; color: #888;">开发高性能 Lua 脚本，优化 GTA V 联机服务器的交互体验与逻辑稳定性。</p>
+            </div>
+            <div class="grid-item">
+                <i class="fa-duotone fa-browser"></i>
+                <h3>Web Aesthetics</h3>
+                <p style="font-family: sans-serif; font-size: 0.9rem; color: #888;">追求如 Balenciaga 官网般的高级工业视觉感，打造不仅好用而且好看的 Web 应用。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="design" class="design">
+        <h1 class="title">DESIGN LOGIC</h1>
+        <div class="about-card" style="border-left: none; border-right: 6px solid var(--primary);">
+            <div class="about-info">
+                <h2>Atomic Design Concept</h2>
+                <p style="margin-bottom: 20px;">
+                    本项目选用了霓虹绿（#00E701）作为强调色。这不仅呼应了黑客终端的色彩，
+                    更结合了高街品牌对荧光色的应用，体现了“代码即艺术”的理念。
+                </p>
+                <div class="color-palette">
+                    <div class="color-circle" style="background: #00e701;"></div>
+                    <div class="color-circle" style="background: #1f1f1f;"></div>
+                    <div class="color-circle" style="background: #2a2a2a;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <h1 class="title">GET IN TOUCH</h1>
+        <div class="form-container">
+            <form>
+                <input type="text" placeholder="YOUR NAME" required>
+                <input type="email" placeholder="EMAIL ADDRESS" required>
+                <textarea rows="5" placeholder="LET'S COLLABORATE..."></textarea>
+                <button class="btn">SEND MESSAGE</button>
+            </form>
+        </div>
+    </section>
+
+    <footer style="padding: 40px; background: #111; color: #444; font-size: 0.8rem; text-align: center;">
+        &copy; 2026 CHEW YI SHENG | FORWARD COLLEGE ASSIGNMENT
+    </footer>
+
+</body>
+</html>
