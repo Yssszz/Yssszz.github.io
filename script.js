@@ -30,12 +30,12 @@ const songs = [
     },
     {
         author: "DRAKE",
-        title: "Xo Tour Llif3",
+        title: "Rich Baby Daddy",
         cover: "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/21/50/ee/2150ee84-62c3-4190-7dfa-da30abd98ac8/23UM1IM09862.rgb.jpg/592x592bb.webp",
         src: "assets/songs/drake.mp3",
     },
     {
-        author: "DRAKE",
+        author: "Lil Uzi Vert",
         title: "Rich Baby Daddy",
         cover: "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDJuOXN3c3g1MHRtaWRmcWVrNWMxdHk0MTN2eGprbmhxNXJoYWJlZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/n9141Bk86jRrN6kZ0j/giphy.gif",
         src: "assets/songs/xo.mp3",
