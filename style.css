@@ -545,4 +545,8 @@ footer {
     .music-container {
         flex-direction: column;
     }
+
+    .music-box {
+        flex: 0 1 100%;
+    }
 }
