@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Portfolio | Chew Yi Sheng</title>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rizmyabdulla/fontawesome-pro@main/releases/v7.2.0/css/fontawesome.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rizmyabdulla/fontawesome-pro@main/releases/v7.2.0/css/all.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rizmyabdulla/fontawesome-pro@main/releases/v7.2.0/css/sharp-solid.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rizmyabdulla/fontawesome-pro@main/releases/v7.2.0/css/duotone.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rizmyabdulla/fontawesome-pro@main/releases/v7.2.0/css/brands.css" />
+
+        <style>
+            @font-face {
+                font-family: "kick";
+                src: url(fonts/kick-font.ttf);
+            }
+
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                scroll-behavior: smooth;
+                letter-spacing: 1px;
+            }
+
+            body {
+                background-color: #2a2a2a;
+                color: white;
+                font-family: "kick", sans-serif;
+                overflow-x: hidden;
+            }
+
+            body::selection {
+                background-color: #00e7004e;
+                color: #fff;
+            }
+
+            a { text-decoration: none; }
+
+            p {
+                font-family: sans-serif;
+                font-weight: bold;
+                letter-spacing: 1px;
+            }
+
+            /* --- Navigation --- */
+            nav {
+                width: 100%;
+                height: fit-content;
+                background-color: #1f1f1f;
+                padding: 10px 20px;
+                border-bottom: 3px solid #00e700;
+                position: fixed;
+                z-index: 100;
+            }
+
+            .logo {
+                color: #00e700;
+                letter-spacing: 5px;
+            }
+
+            .nav-links {
+                font-size: 50px;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            nav i {
+                color: gray;
+                transition: all 0.2s ease;
+                cursor: pointer;
+            }
+
+            nav i:hover {
+                color: #00e701;
+                transform: scale(0.9);
+            }
+
+            /* --- Home Section --- */
+            .home {
+                width: 100%;
+                height: 100vh;
+                background: linear-gradient(77deg, #1a3d1a 0%, #284e28 20%, #1f1f1f 45%, #1f2e1f 60%, #2d7a2d 78%, #047b04 100%);
+                background-size: 250% 250%;
+                animation: gradientMove 6s ease infinite alternate;
+            }
+
+            @keyframes gradientMove {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 50% 50%; }
+                100% { background-position: 100% 50%; }
+            }
+
+            .info {
+                height: 100%;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 20px;
+                background-color: rgba(0, 0, 0, 0.2);
+            }
+
+            .home h1 { font-size: 4.7rem; margin-bottom: 40px; }
+
+            #home-btn {
+                color: black;
+                border: none;
+                padding: 18px 50px;
+                background-color: #00e701;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 20px;
+                font-family: "kick", sans-serif;
+                transition: all 0.1s linear;
+            }
+
+            #home-btn:hover {
+                transform: translateY(-5px);
+                box-shadow: 1px 1px 20px 16px rgba(0, 162, 1, 0.59);
+            }
+
+            /* --- About Section --- */
+            .about {
+                background-color: #1f1f1f;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 100px 20px;
+                gap: 30px;
+            }
+
+            .about h1 { font-size: 4rem; color: #00ff01; }
+
+            .about-card {
+                width: 100%;
+                max-width: 800px;
+                background-color: #2f2f2f;
+                border-radius: 10px;
+                border-left: 5px solid #00ff01;
+                display: flex;
+                padding: 20px;
+                gap: 20px;
+            }
+
+            .about-card img {
+                width: 350px;
+                height: 400px;
+                object-fit: cover;
+                border-radius: 5px;
+            }
+
+            .about-card-info {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 20px;
+            }
+
+            .about-card-info h2 { font-size: 2.5rem; }
+
+            /* --- PASSIONS SECTION (The New One) --- */
+            .passions {
+                background-color: #2a2a2a;
+                min-height: 100vh;
+                padding: 100px 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+                scroll-margin-top: 65px;
+            }
+
+            .passions h1 { font-size: 4rem; color: #00ff01; }
+
+            .passions-container {
+                display: flex;
+                gap: 25px;
+                width: 100%;
+                max-width: 1100px;
+            }
+
+            .passion-box {
+                flex: 1; /* 同等大小关键 */
+                background-color: #1f1f1f;
+                padding: 40px 30px;
+                border-radius: 15px;
+                border: 1px solid #444;
+                text-align: center;
+                transition: all 0.4s ease;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .passion-box:hover {
+                border-color: #00ff01;
+                transform: translateY(-15px);
+                box-shadow: 0 15px 30px rgba(0, 255, 1, 0.2);
+            }
+
+            .passion-box i {
+                font-size: 50px;
+                color: #00ff01;
+                margin-bottom: 20px;
+                display: block;
+            }
+
+            .passion-box h3 { font-size: 26px; color: #fff; margin-bottom: 15px; }
+
+            .passion-box p {
+                font-size: 14px;
+                color: #aaa;
+                line-height: 1.6;
+                font-family: sans-serif;
+            }
+
+            .tag {
+                position: absolute;
+                bottom: 10px;
+                right: 10px;
+                font-size: 10px;
+                color: rgba(0, 255, 1, 0.3);
+                border: 1px solid rgba(0, 255, 1, 0.2);
+                padding: 2px 8px;
+                border-radius: 3px;
+            }
+
+            /* --- How & Contact --- */
+            .how {
+                background-color: #1f1f1f;
+                min-height: 100vh;
+                padding: 100px 20px;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .how h1 { font-size: 4rem; color: #00ff01; }
+
+            .how-grid {
+                background-color: rgb(63, 63, 63);
+                padding: 30px;
+                border-right: 5px solid #00ff01;
+                border-radius: 5px;
+                width: 100%;
+                max-width: 900px;
+                margin-bottom: 20px;
+            }
+
+            .color-row {
+                display: flex;
+                gap: 20px;
+                justify-content: center;
+                align-items: center;
+                font-size: 50px;
+                margin-top: 15px;
+            }
+
+            .color-circle { width: 50px; height: 50px; border-radius: 50%; }
+
+            .contact {
+                background-color: #2f2f2f;
+                min-height: 100vh;
+                padding: 100px 20px;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 40px;
+            }
+
+            .contact h1 { color: #00ff01; font-size: 4rem; }
+
+            .contact-body { display: flex; gap: 40px; }
+
+            .form {
+                background-color: #2a2a2a;
+                border-top: 5px solid #00ff01;
+                border-bottom: 5px solid #00ff01;
+                padding: 40px;
+                width: 500px;
+                border-radius: 5px;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .input-group { display: flex; flex-direction: column; text-align: left; }
+            .input-group label { color: #00e701; font-size: 18px; margin-bottom: 8px; }
+            .input-group input, .input-group textarea {
+                padding: 15px;
+                background-color: #1f1f1f;
+                border: 1px solid #444;
+                color: white;
+                outline: none;
+                border-radius: 5px;
+            }
+
+            .contact-card { display: flex; flex-direction: column; gap: 30px; justify-content: center; }
+            .contact-item a { display: flex; align-items: center; gap: 15px; color: white; font-weight: bold; }
+            .icon-box { background: #3a3a3a; padding: 15px; border-radius: 10px; min-width: 60px; text-align: center; }
+            .icon-box i { font-size: 30px; color: #00ff01; }
+
+            footer { padding: 20px; text-align: center; color: #555; background-color: #111; font-size: 12px; }
+
+            /* --- Responsive --- */
+            @media (max-width: 768px) {
+                .nav-links { font-size: 25px; }
+                .logo { display: none; }
+                .home h1, .about h1, .passions h1, .contact h1 { font-size: 2.5rem; }
+                .about-card { flex-direction: column; }
+                .about-card img { width: 100%; height: 250px; }
+                .passions-container { flex-direction: column; }
+                .contact-body { flex-direction: column; }
+                .form { width: 100%; }
+            }
+        </style>
+    </head>
+    <body>
+        <nav>
+            <div class="nav-links">
+                <a href="#home"><i class="fa-duotone fa-solid fa-home"></i></a>
+                <a href="#about"><i class="fa-duotone fa-solid fa-user"></i></a>
+                <a href="#home"><div class="logo">MY PORTFOLIO</div></a>
+                <a href="#passions"><i class="fa-duotone fa-solid fa-fire-flame-curved"></i></a>
+                <a href="#contact"><i class="fa-duotone fa-solid fa-envelope"></i></a>
+            </div>
+        </nav>
+
+        <main>
+            <section class="home" id="home">
+                <div class="info">
+                    <h1>WELCOME TO MY PORTFOLIO</h1>
+                    <a href="#about"><button id="home-btn">GET STARTED</button></a>
+                </div>
+            </section>
+
+            <section class="about" id="about">
+                <h1>ABOUT ME</h1>
+                <div class="about-card">
+                    <img src="assets/IMG_0144.jpg" alt="Profile" />
+                    <div class="about-card-info">
+                        <h2>Chew Yi Sheng</h2>
+                        <p>19-year-old Software Engineering student. Passionate about racing aesthetics and modern web design.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="passions" id="passions">
+                <h1>MY PASSIONS</h1>
+                <div class="passions-container">
+                    <div class="passion-box">
+                        <i class="fa-duotone fa-solid fa-steering-wheel"></i>
+                        <h3>JDM & Cars</h3>
+                        <p>对日本改装车文化深感兴趣。我喜欢研究汽车的机械美感与速度表现。</p>
+                        <span class="tag">SPEED</span>
+                    </div>
+                    <div class="passion-box">
+                        <i class="fa-duotone fa-solid fa-shirt"></i>
+                        <h3>Streetwear</h3>
+                        <p>热爱潮流穿搭，特别关注 Balenciaga 和 Acne Studios 的设计美学。</p>
+                        <span class="tag">STYLE</span>
+                    </div>
+                    <div class="passion-box">
+                        <i class="fa-duotone fa-solid fa-camera-retro"></i>
+                        <h3>Photography</h3>
+                        <p>痴迷于胶片摄影的独特质感，习惯用 Fujifilm 记录生活的每一个瞬间。</p>
+                        <span class="tag">VISION</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="how" id="how">
+                <h1>HOW I BUILT THIS</h1>
+                <div class="how-grid">
+                    <h2>THEME</h2>
+                    <p>Inspired by Kick Sauber F1. Neon Green (#00e700).</p>
+                    <div class="color-row">
+                        <div class="color-circle" style="background-color: #00c201"></div>
+                        <div class="color-circle" style="background-color: #1f1f1f"></div>
+                        <div class="color-circle" style="background-color: #2a2a2a"></div>
+                    </div>
+                </div>
+                <div class="how-grid">
+                    <h2>STACK</h2>
+                    <div class="color-row">
+                        <i class="fa-brands fa-html5" style="color: #e34c26"></i>
+                        <i class="fa-brands fa-css3-alt" style="color: #264de4"></i>
+                        <i class="fa-brands fa-google" style="color: #74c0fc"></i>
+                    </div>
+                </div>
+            </section>
+
+            <section class="contact" id="contact">
+                <h1>CONTACT ME</h1>
+                <div class="contact-body">
+                    <div class="form">
+                        <div class="input-group">
+                            <label>Name</label>
+                            <input type="text" placeholder="Your Name" />
+                        </div>
+                        <div class="input-group">
+                            <label>Email</label>
+                            <input type="email" placeholder="example@gmail.com" />
+                        </div>
+                        <div class="input-group">
+                            <label>Message</label>
+                            <textarea rows="5" placeholder="Say hello..."></textarea>
+                        </div>
+                        <button id="home-btn" style="width: 100%;">SEND</button>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-item">
+                            <a href="https://www.instagram.com/_yssszz/" target="_blank">
+                                <div class="icon-box"><i class="fa-brands fa-instagram"></i></div> INSTAGRAM
+                            </a>
+                        </div>
+                        <div class="contact-item">
+                            <a href="mailto:epstein@gmail.com">
+                                <div class="icon-box"><i class="fa-solid fa-at"></i></div> EMAIL
+                            </a>
+                        </div>
+                        <div class="contact-item">
+                            <a href="https://github.com/Yssszz" target="_blank">
+                                <div class="icon-box"><i class="fa-brands fa-github"></i></div> GITHUB
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer>
+                <p>&copy; 2026 CHEW YI SHENG. All Rights Reserved.</p>
+            </footer>
+        </main>
+    </body>
+</html>
