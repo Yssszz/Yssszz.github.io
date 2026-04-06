@@ -36,7 +36,7 @@ const songs = [
     },
     {
         author: "Lil Uzi Vert",
-        title: "Rich Baby Daddy",
+        title: "Xo Tour Llif3",
         cover: "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDJuOXN3c3g1MHRtaWRmcWVrNWMxdHk0MTN2eGprbmhxNXJoYWJlZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/n9141Bk86jRrN6kZ0j/giphy.gif",
         src: "assets/songs/xo.mp3",
     },
