@@ -6,7 +6,7 @@ audio.volume = 0.5;
 const songs = [
     {
         author: "Jolin Tsai",
-        title: "我知道你很难过",
+        title: "Nice Song",
         cover: "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/47/2f/a5/472fa581-1462-4905-c73f-94603e81a7d3/cover.jpg/592x592bb.webp",
         src: "assets/songs/tsai.mp3",
     },
@@ -18,19 +18,19 @@ const songs = [
     },
     {
         author: "Lala Hsu",
-        title: "The Same Moonlight",
+        title: "Nice Song",
         cover: "https://is1-ssl.mzstatic.com/image/thumb/Music6/v4/43/52/5e/43525e86-9c47-cb57-5ca5-a374aa7afa40/LaLa.jpg/416x416bb.webp",
         src: "assets/songs/moon.mp3",
     },
     {
         author: "Playboi Carti",
-        title: "Rather Lie",
+        title: "RatherLie",
         cover: "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/03/24/10/03241047-f22d-7e64-3932-6df7550acc42/25UMGIM46212.rgb.jpg/592x592bb.webp",
         src: "assets/songs/rather.mp3",
     },
     {
         author: "DRAKE",
-        title: "Rich Baby Daddy",
+        title: "Xo Tour Llif3",
         cover: "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/21/50/ee/2150ee84-62c3-4190-7dfa-da30abd98ac8/23UM1IM09862.rgb.jpg/592x592bb.webp",
         src: "assets/songs/drake.mp3",
     },

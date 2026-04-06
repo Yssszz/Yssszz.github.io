@@ -354,6 +354,10 @@ button:active {
     color: gray;
 }
 
+.bar-controls {
+    display: flex;
+}
+
 .contact {
     background-color: #2f2f2f;
     min-height: 100vh;
@@ -548,5 +552,22 @@ footer {
 
     .music-box {
         flex: 0 1 100%;
+        width: 100%;
+    }
+
+    .music-box img {
+        height: 200px;
+    }
+
+    .bar-controls {
+        flex-direction: column;
+    }
+
+    .bar-controls i {
+        font-size: 1px;
+    }
+
+    .music h1 {
+        font-size: 2rem; 
     }
 }
