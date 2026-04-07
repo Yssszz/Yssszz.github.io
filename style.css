@@ -169,6 +169,13 @@ button:active {
     align-items: center;
     gap: 20px;
     padding: 20px;
+    transition: all 1s ease;
+    cursor: pointer;
+}
+
+.about-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 1px 1px 20px 16px rgba(255, 255, 255, 0.249);
 }
 
 .about-card img {
@@ -259,6 +266,7 @@ button:active {
     background-color: #1f1f1f;
     text-align: center;
     padding: 20px;
+    scroll-margin-top: 60px;
 }
 
 .music h1 {
@@ -568,6 +576,6 @@ footer {
     }
 
     .music h1 {
-        font-size: 5vh; 
+        font-size: 5vh;
     }
 }
