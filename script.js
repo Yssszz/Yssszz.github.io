@@ -1,7 +1,7 @@
 let isPlaying = false;
 const audio = new Audio();
 let currentIndex = 0;
-audio.volume = 0.5;
+audio.volume = 0.4;
 
 const songs = [
     {
