@@ -49,7 +49,7 @@
             }
 
             .container-body {
-                min-width: 800px;
+                min-width: 650px;
                 height: fit-content;
                 display: flex;
                 flex-direction: column;
@@ -174,8 +174,8 @@
                 }
 
                 .login img {
-                    width: 40px;
-                    height: 40px;
+                    width: 30px;
+                    height: 30px;
                 }
             }
         </style>
@@ -183,13 +183,13 @@
     <body>
         <div class="container">
             <div class="login">
-                <img src="https://media-cldnry.s-nbcnews.com/image/upload/t_fit-560w,f_auto,q_auto:best/rockcms/2023-06/230601-jeffrey-epstein-2005-ac-547p-94aa33.jpg" alt="logo" />
-                <p>User</p>
+                <img src="https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg" alt="logo" onclick="alert('Login Account: USER')" style="object-fit: cover; object-position: center" />
+                <p>USER</p>
             </div>
             <div class="container-body">
                 <h1>PIGGY BANK</h1>
                 <div class="amount-body">
-                    <p>Current balance</p>
+                    <p>Current Balance</p>
                     <h4 id="balance">BTC 69.00</h4>
                 </div>
                 <h5>RECEIVER</h5>
@@ -200,15 +200,17 @@
                         <div style="font-size: 1rem; color: #70757a">Account: **** 8888</div>
                     </div>
                 </div>
-                <h5>Transfer Balance (BTC)</h5>
+                <h5>TRASNSFER BALANCE (BTC)</h5>
                 <div class="transfer">
                     <input type="number" id="amount" placeholder="0.00" step="0.01" />
                 </div>
-                <button class="btn-transfer" onclick="handleTransfer()">立即转账</button>
+                <button class="btn-transfer" onclick="handleTransfer()" style="color: #222">INSTANT TRANSFER</button>
             </div>
         </div>
         <script>
-            let currentBalance = 69.0;
+            let currentBalance = Math.random() * (100 - 50) + 50;
+
+            document.getElementById("balance").textContent = "BTC " + currentBalance.toFixed(2);
 
             function handleTransfer() {
                 const amount = Number(document.getElementById("amount").value);
@@ -219,7 +221,7 @@
                     alert("请输入一个有效的金额");
                 } else {
                     currentBalance -= amount;
-                    document.getElementById("balance").textContent = "BTC " + currentBalance;
+                    document.getElementById("balance").textContent = "BTC " + currentBalance.toFixed(2);
                 }
             }
         </script>
