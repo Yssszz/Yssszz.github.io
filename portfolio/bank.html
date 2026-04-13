@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title></title>
+        <style>
+            @font-face {
+                font-family: "kick";
+                src: url(fonts/kick-font.ttf);
+            }
+
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                padding: 0;
+                margin: 0;
+            }
+
+            body {
+                background-color: #222;
+                color: white;
+            }
+
+            .container {
+                background-color: #2f2f2f;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                width: 100%;
+                position: relative;
+            }
+
+            .login {
+                position: absolute;
+                top: 10px;
+                right: 20px;
+                font-size: 1rem;
+                color: white;
+                cursor: pointer;
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            .container-body {
+                min-width: 650px;
+                height: fit-content;
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                background-color: #1f1f1f;
+                padding: 40px;
+                border-radius: 15px;
+                border-top: #00ff01 8px solid;
+                border-bottom: #00ff01 8px solid;
+            }
+
+            .container-body h1 {
+                font-size: 3rem;
+                margin-bottom: 20px;
+                color: black;
+                text-align: center;
+                font-family: "kick", sans-serif;
+                color: #00ff01;
+            }
+
+            .amount-body {
+                background-color: #3a3a3a;
+                border-radius: 15px;
+                padding: 20px;
+                text-align: center;
+            }
+
+            .amount-body p {
+                font-size: 20px;
+                color: #888;
+                letter-spacing: 0px;
+            }
+
+            .amount-body h4 {
+                font-size: 3rem;
+                font-weight: bolder;
+                color: #ffe602;
+            }
+
+            h5 {
+                color: #00ff01;
+                font-family: "kick", sans-serif;
+                font-size: 30px;
+                letter-spacing: 2px;
+            }
+
+            h4 {
+                color: #4072e0;
+                font-weight: bold;
+                font-family: "kick", sans-serif;
+            }
+            .ys-bg {
+                background-color: #3a3a3a;
+                border-radius: 15px;
+                padding: 20px;
+                display: flex;
+                gap: 20px;
+            }
+
+            img {
+                object-fit: cover;
+                width: 70px;
+                height: 70px;
+                border-radius: 50%;
+            }
+
+            input {
+                width: 100%;
+                padding: 15px;
+                background-color: #111;
+                border: 2px solid #6160609f;
+                color: #00e700;
+                border-radius: 5px;
+                font-size: 1.2rem;
+                font-family: "kick", sans-serif;
+                outline: none;
+                transition: all 0.2s linear;
+            }
+
+            input:focus {
+                outline: none;
+                border-color: #00ff01;
+                border: 2px solid #00ff01;
+            }
+
+            .btn-transfer {
+                color: black;
+                border: none;
+                padding: 18px;
+                background-color: #00e701;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 20px;
+                font-family: "kick", sans-serif;
+                letter-spacing: 3px;
+                transition: all 0.1s linear;
+                font-weight: bold;
+                margin-top: 10px;
+            }
+
+            .btn-transfer:hover {
+                transform: translateY(-5px) scale(1.03);
+                background-color: #00ff01;
+                box-shadow: 1px 1px 20px 16px rgba(0, 162, 1, 0.4);
+            }
+
+            .btn-transfer:active {
+                transform: translateY(0px) scale(1);
+                background-color: #00c201;
+            }
+
+            @media (max-width: 768px) {
+                .container-body {
+                    min-width: 90%;
+                    padding: 20px;
+                }
+
+                .login {
+                    top: 10px;
+                    right: 20px;
+                    gap: 0px;
+                }
+
+                .login img {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="login">
+                <img src="https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg" alt="logo" onclick="alert('Login Account: USER')" style="object-fit: cover; object-position: center" />
+                <p>USER</p>
+            </div>
+            <div class="container-body">
+                <h1>PIGGY BANK</h1>
+                <div class="amount-body">
+                    <p>Current Balance</p>
+                    <h4 id="balance">BTC 69.00</h4>
+                </div>
+                <h5>RECEIVER</h5>
+                <div class="ys-bg">
+                    <img src="assets/IMG_0144.jpg" alt="logo" />
+                    <div class="ys-info">
+                        <div style="font-weight: bold; color: #00ff01; font-size: 20px">YS (Your Friend)</div>
+                        <div style="font-size: 1rem; color: #70757a">Account: **** 8888</div>
+                    </div>
+                </div>
+                <h5>TRASNSFER BALANCE (BTC)</h5>
+                <div class="transfer">
+                    <input type="number" id="amount" placeholder="0.00" step="0.01" />
+                </div>
+                <button class="btn-transfer" onclick="handleTransfer()" style="color: #222">INSTANT TRANSFER</button>
+            </div>
+        </div>
+        <script>
+            let currentBalance = Math.random() * (100 - 50) + 50;
+
+            const listOfNames = ["Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Heidi", "Ivan", "Judy"];
+            const randomName = listOfNames[Math.floor(Math.random() * listOfNames.length)];
+
+
+            document.getElementById("balance").textContent = "BTC " + currentBalance.toFixed(2);
+            document.querySelector(".login p").textContent = randomName;
+
+            function handleTransfer() {
+                const amount = Number(document.getElementById("amount").value);
+
+                if (amount > currentBalance) {
+                    alert("你没有那么多钱");
+                } else if (amount <= 0) {
+                    alert("请输入一个有效的金额");
+                } else {
+                    currentBalance -= amount;
+                    document.getElementById("balance").textContent = "BTC " + currentBalance.toFixed(2);
+                }
+            }
+        </script>
+    </body>
+</html>
