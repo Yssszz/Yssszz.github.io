@@ -210,7 +210,12 @@
         <script>
             let currentBalance = Math.random() * (100 - 50) + 50;
 
+            const listOfNames = ["Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Heidi", "Ivan", "Judy"];
+            const randomName = listOfNames[Math.floor(Math.random() * listOfNames.length)];
+
+
             document.getElementById("balance").textContent = "BTC " + currentBalance.toFixed(2);
+            document.querySelector(".login p").textContent = randomName;
 
             function handleTransfer() {
                 const amount = Number(document.getElementById("amount").value);
