@@ -568,9 +568,18 @@ i {
     color: #449994;
 }
 
-#sponser img {
-    height: 40px;
+.sponser-brand img {
+    height: 70px;
     width: auto;
+    max-width: 180px;
+    object-fit: contain;
+}
+
+.other-sponser img {
+    height: 35px;
+    width: auto;
+    max-width: 120px;
+    object-fit: contain;
 }
 
 .sponser-grid {
@@ -806,25 +815,25 @@ footer {
     }
 
     #sponser h1 {
-        font-size: 8vw; 
+        font-size: 8vw;
     }
 
     .sponser-grid {
         gap: 30px;
     }
 
-    #sponser h1{
+    #sponser h1 {
         text-align: center;
     }
 
     .sponser-brand {
-        flex-wrap: wrap; 
+        flex-wrap: wrap;
         gap: 30px;
         justify-content: center;
     }
 
     .other-sponser {
-        gap: 25px; 
+        gap: 25px;
         justify-content: center;
     }
 
