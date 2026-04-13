@@ -1,4 +1,5 @@
-*,
+/* root folder */
+*, 
 *::before,
 *::after {
     box-sizing: border-box;
@@ -6,12 +7,16 @@
     margin: 0;
     scroll-behavior: smooth;
 }
+/* root end */
 
+/* change font */
 @font-face {
     font-family: "amg";
     src: url("amg.ttf") format("truetype");
 }
+/* change font end */
 
+/* body loh */
 body {
     color: white;
     font-family: sans-serif;
@@ -21,7 +26,9 @@ body::selection {
     background-color: #009e98;
     color: white;
 }
+/* body end */
 
+/* navigation bar */
 nav {
     width: 100%;
     height: fit-content;
@@ -106,7 +113,9 @@ i {
     background-color: rgba(255, 255, 255, 0.07);
     transform: scale(1);
 }
+/* nav end */
 
+/* hero section */
 #hero {
     width: 100%;
     min-height: 100vh;
@@ -114,8 +123,8 @@ i {
     background-size: 250% 250%;
     animation: gradientmove 10s ease infinite alternate;
 }
-
-@keyframes gradientmove {
+/* animation for background i guess */
+@keyframes gradientmove { 
     0% {
         background-position: 0% 50%;
     }
@@ -126,6 +135,7 @@ i {
         background-position: 100% 50%;
     }
 }
+/* animation end */
 
 .hero-overlay {
     background-color: rgba(0, 0, 0, 0.5);
@@ -203,9 +213,9 @@ i {
     box-shadow: 0 3px 10px rgba(0, 158, 152, 0.4);
     transform: translateY(0) scale(1);
 }
+/* hero end i know it's really messy im sry */
 
-/* cars */
-
+/* cars section */
 #cars {
     width: 100%;
     min-height: 100vh;
@@ -327,8 +337,9 @@ i {
     font-size: 20px;
     letter-spacing: 2px;
 }
+/* cars end */
 
-/* services */
+/* services section*/
 #drivers {
     width: 100%;
     min-height: 100vh;
@@ -447,8 +458,9 @@ i {
     font-size: 30px;
     color: #05b8d4;
 }
+/* driver end */
 
-/* contact */
+/* contact section */
 #contact {
     width: 100%;
     min-height: 100vh;
@@ -546,8 +558,9 @@ i {
     box-shadow: 0 3px 10px rgba(0, 158, 152, 0.4);
     transform: translateY(0) scale(1);
 }
+/* contact end */
 
-/* sponser */
+/* sponser section (because sponser its new so i put css behind contact.)*/
 #sponser {
     min-height: 100vh;
     width: 100%;
@@ -609,8 +622,9 @@ i {
     /* background-color: #303036; */
     padding: 10px;
 }
+/* sponser end */
 
-/* stats */
+/* stats section*/
 #stats {
     height: 100%;
     min-height: 100vh;
@@ -656,7 +670,9 @@ td {
 tbody tr:hover {
     background-color: #141d24;
 }
+/* stats end */
 
+/* footer ofc */
 footer {
     width: 100%;
     background: #0a1822;
@@ -707,7 +723,10 @@ footer {
 .icon i:active {
     transform: scale(0.9);
 }
+/* footer finish yay */
 
+
+/* for mobile (still have bit of display bug but anyway) */
 @media (max-width: 768px) {
     body {
         overflow-x: hidden;
@@ -844,3 +863,4 @@ footer {
         height: 30px;
     }
 }
+/* fully finish yay */
