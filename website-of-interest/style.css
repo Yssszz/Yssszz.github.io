@@ -509,7 +509,7 @@ i {
 
 .check-row {
     display: flex;
-    gap: 20px;
+    gap: 10px;
 }
 
 .check-item {
@@ -709,6 +709,9 @@ footer {
 }
 
 @media (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+    }
     nav {
         flex-direction: row;
         gap: 10px;
@@ -794,7 +797,7 @@ footer {
     }
 
     #contact h1 {
-        font-size: 5vh;
+        font-size: 5vw;
     }
 
     .ct-container {
