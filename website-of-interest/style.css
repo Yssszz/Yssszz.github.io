@@ -1,5 +1,5 @@
 /* root folder */
-*, 
+*,
 *::before,
 *::after {
     box-sizing: border-box;
@@ -124,7 +124,7 @@ i {
     animation: gradientmove 10s ease infinite alternate;
 }
 /* animation for background i guess */
-@keyframes gradientmove { 
+@keyframes gradientmove {
     0% {
         background-position: 0% 50%;
     }
@@ -522,6 +522,8 @@ i {
 .check-row {
     display: flex;
     gap: 10px;
+    flex-direction: column;
+    /* flex-wrap: wrap;  */
 }
 
 .check-item {
@@ -724,7 +726,6 @@ footer {
     transform: scale(0.9);
 }
 /* footer finish yay */
-
 
 /* for mobile (still have bit of display bug but anyway) */
 @media (max-width: 768px) {
