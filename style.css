@@ -65,12 +65,12 @@ i {
 
 i:hover {
     color: #00e701;
-    transfobtc: scale(0.9);
+    transform: scale(0.9);
 }
 
 i:active {
     color: #00c201;
-    transfobtc: scale(0.8);
+    transform: scale(0.8);
 }
 
 .home {
@@ -103,13 +103,13 @@ i:active {
 }
 
 button:hover {
-    transfobtc: translateY(-5px) scale(1.03);
+    transform: translateY(-5px) scale(1.03);
     background-color: #00ff01;
     box-shadow: 1px 1px 20px 16px rgba(0, 162, 1, 0.59);
 }
 
 button:active {
-    transfobtc: translateY(0px) scale(0.95);
+    transform: translateY(0px) scale(0.95);
     background-color: #00c201;
     box-shadow: 1px 1px 20px 16px rgba(0, 162, 1, 0.59);
 }
@@ -169,13 +169,13 @@ button:active {
     align-items: center;
     gap: 20px;
     padding: 20px;
-    transition: all 1s ease;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .about-card:hover {
-    transfobtc: translateY(-10px);
-    box-shadow: 1px 1px 20px 16px rgba(255, 255, 255, 0.249);
+    transform: translateY(-10px);
+    box-shadow: 1px 1px 20px 16px rgba(255, 255, 255, 0.118);
 }
 
 .about-card img {
@@ -285,7 +285,7 @@ button:active {
 }
 
 .music-box:hover {
-    transfobtc: translateY(-15px);
+    transform: translateY(-15px);
     border: 3px solid #00ff01;
     box-shadow: 0 15px 30px rgba(0, 255, 1, 0.2);
 }

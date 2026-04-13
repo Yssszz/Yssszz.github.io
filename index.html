@@ -37,6 +37,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="style.css" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
         <title>Portfolio</title>
     </head>
     <body>
@@ -87,9 +88,9 @@
                 </div>
             </section>
 
-            <section class="how" id="how">
+            <section class="how" id="how" \>
                 <h1>HOW I BUILT THIS WEBSITE</h1>
-                <div class="how-grid">
+                <div class="how-grid" data-aos="fade-right" data-aos-delay="100">
                     <h2>THEME</h2>
                     <p>Inspired by Kick Sauber F1. Defined by Neon Green (<span style="color: #00e700">#00e700</span>).</p>
                     <div class="color-row">
@@ -99,7 +100,7 @@
                     </div>
                 </div>
 
-                <div class="how-grid">
+                <div class="how-grid" data-aos="fade-right" data-aos-delay="100">
                     <h2>DESIGN</h2>
                     <p>I love simple UI. So I Used lots of icons for a clean, simple look.</p>
                     <div class="color-row">
@@ -110,7 +111,7 @@
                     </div>
                 </div>
 
-                <div class="how-grid">
+                <div class="how-grid" data-aos="fade-right" data-aos-delay="100">
                     <h2>FULLY APPRECIATE</h2>
                     <p>Big appreciate to the tools that helped me answer my problem when things got tough..</p>
                     <div class="color-row">
@@ -220,5 +221,9 @@
             </footer>
         </main>
         <script src="script.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+        <script>
+            AOS.init();
+        </script>
     </body>
 </html>
