@@ -522,8 +522,6 @@ i {
 .check-row {
     display: flex;
     gap: 10px;
-    flex-direction: column;
-    /* flex-wrap: wrap;  */
 }
 
 .check-item {
@@ -862,6 +860,10 @@ footer {
 
     #sponser img {
         height: 30px;
+    }
+
+    .check-row {
+        flex-direction: column;
     }
 }
 /* fully finish yay */
