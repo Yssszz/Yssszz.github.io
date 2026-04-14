@@ -123,6 +123,7 @@ i {
     background-size: 250% 250%;
     animation: gradientmove 10s ease infinite alternate;
 }
+
 /* animation for background i guess */
 @keyframes gradientmove {
     0% {
@@ -137,8 +138,20 @@ i {
 }
 /* animation end */
 
+#hero video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
 .hero-overlay {
-    background-color: rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 1;
+    background-color: rgba(5, 71, 69, 0.55); /* 主题绿色半透明 */
     min-height: 100vh;
     min-width: 100%;
     display: flex;
