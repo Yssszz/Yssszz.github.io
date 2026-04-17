@@ -21,7 +21,7 @@ document.querySelector("#wpp-btn").addEventListener("click", function () {
     }
 });
 
-const savedName = localStorage.getItem("username") || "Yisheng";
+const savedName = localStorage.getItem("username") || "User";
 const savedPfp = localStorage.getItem("pfp");
 
 document.querySelector("#username").textContent = savedName;
