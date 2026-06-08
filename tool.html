@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>集运填单助手</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f4efe6; --paper-2:#ebe4d6; --ink:#26221c; --ink-soft:#5c554a;
+    --line:#d8cfbd; --accent:#c2492e; --radius:14px;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:"Noto Sans SC",sans-serif;
+    background:var(--paper);
+    background-image:radial-gradient(circle at 1px 1px, rgba(0,0,0,.04) 1px, transparent 0);
+    background-size:18px 18px;
+    color:var(--ink); min-height:100vh; padding:18px 14px 130px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:560px;margin:0 auto;}
+  header{
+    border:2px solid var(--ink); border-radius:var(--radius);
+    background:var(--paper-2); padding:16px 18px; margin-bottom:18px;
+    position:relative; overflow:hidden;
+  }
+  header h1{font-size:1.35rem;margin:0 0 4px;letter-spacing:.02em;}
+  header p{margin:0;font-size:.82rem;color:var(--ink-soft);}
+  .stamp{
+    position:absolute;top:50%;right:14px;transform:translateY(-50%) rotate(-12deg);
+    font-family:"Space Mono",monospace;font-size:.62rem;font-weight:700;color:var(--accent);
+    border:2px solid var(--accent);border-radius:8px;padding:6px 8px;line-height:1.1;
+    text-align:center;opacity:.85;
+  }
+  section{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:14px;margin-bottom:16px;box-shadow:0 2px 0 rgba(0,0,0,.04);
+  }
+  .sec-title{
+    display:flex;align-items:center;gap:8px;font-family:"Space Mono",monospace;
+    font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:6px;
+  }
+  .sec-title::before{content:"";width:8px;height:8px;background:var(--accent);border-radius:50%;flex:none;}
+  .sec-note{font-size:.72rem;color:var(--ink-soft);margin:0 0 12px;}
+  .field{margin-bottom:12px;}
+  .field:last-child{margin-bottom:0;}
+  label{display:block;font-size:.78rem;font-weight:500;color:var(--ink-soft);margin-bottom:5px;}
+  .input-row{display:flex;gap:8px;align-items:stretch;}
+  input,textarea{
+    flex:1;width:100%;font-family:"Noto Sans SC",sans-serif;font-size:1rem;color:var(--ink);
+    background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:11px 12px;
+    outline:none;transition:border-color .15s, background .15s;
+  }
+  textarea{resize:vertical;min-height:48px;line-height:1.4;}
+  input:focus,textarea:focus{border-color:var(--accent);background:#fff;}
+  .mini{
+    flex:none;min-width:46px;border:1px solid var(--line);background:var(--paper-2);
+    border-radius:10px;font-family:"Space Mono",monospace;font-size:.72rem;font-weight:700;
+    color:var(--ink-soft);cursor:pointer;display:flex;align-items:center;justify-content:center;
+    transition:.15s;padding:0 10px;
+  }
+  .mini:active{transform:scale(.94);}
+  .mini.copy:active{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .mini.del{color:var(--accent);}
+  .add-btn{
+    width:100%;border:1.5px dashed var(--line);background:transparent;color:var(--ink-soft);
+    border-radius:10px;padding:11px;font-family:"Noto Sans SC",sans-serif;font-size:.9rem;
+    font-weight:500;cursor:pointer;transition:.15s;margin-top:2px;
+  }
+  .add-btn:active{background:var(--paper-2);border-color:var(--accent);color:var(--accent);}
+  .bar{
+    position:fixed;left:0;right:0;bottom:0;background:rgba(244,239,230,.92);
+    backdrop-filter:blur(8px);border-top:1px solid var(--line);
+    padding:12px 14px calc(12px + env(safe-area-inset-bottom));
+  }
+  .bar-inner{max-width:560px;margin:0 auto;}
+  #copyAll{
+    width:100%;background:var(--accent);color:#fff;border:none;border-radius:12px;padding:15px;
+    font-family:"Noto Sans SC",sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:.04em;
+    cursor:pointer;box-shadow:0 3px 0 #8f3320;transition:.1s;
+  }
+  #copyAll:active{transform:translateY(2px);box-shadow:0 1px 0 #8f3320;}
+  .hint{font-size:.72rem;color:var(--ink-soft);text-align:center;margin-top:9px;}
+  #toast{
+    position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);
+    background:var(--ink);color:#fff;font-size:.85rem;font-weight:500;padding:10px 20px;
+    border-radius:30px;opacity:0;pointer-events:none;transition:.25s;z-index:50;
+    display:flex;align-items:center;gap:7px;
+  }
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  #toast::before{content:"✓";color:#8fd6a0;font-weight:700;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>集运填单助手</h1>
+    <p>只填单号和物品类别，其他默认</p>
+    <div class="stamp">FILL<br>&amp;COPY</div>
+  </header>
+
+  <!-- 单号 -->
+  <section>
+    <div class="sec-title">单号</div>
+    <p class="sec-note">每次自己填，可加多个</p>
+    <div id="orderList"></div>
+    <button class="add-btn" id="addOrder">＋ 多加一个单号</button>
+  </section>
+
+  <!-- 物品类别 -->
+  <section>
+    <div class="sec-title">物品类别</div>
+    <p class="sec-note">每次自己填，可加多个</p>
+    <div id="categoryList"></div>
+    <button class="add-btn" id="addCategory">＋ 多加一个物品类别</button>
+  </section>
+
+  <!-- 收件人（默认） -->
+  <section>
+    <div class="sec-title">收件人信息（默认 · 可改）</div>
+    <div id="recipFields"></div>
+  </section>
+
+</div>
+
+<div class="bar">
+  <div class="bar-inner">
+    <button id="copyAll">复制全部</button>
+    <div class="hint">复制出来就是集运仓要的格式</div>
+  </div>
+</div>
+
+<div id="toast">已复制</div>
+
+<script>
+/* ============ 储存（自动适应环境）============ */
+const Store = {
+  async get(key){
+    try{ if(window.storage){ const r=await window.storage.get(key); return r?r.value:null; } }catch(e){}
+    try{ return localStorage.getItem(key); }catch(e){ return null; }
+  },
+  async set(key,val){
+    try{ if(window.storage){ await window.storage.set(key,val); return; } }catch(e){}
+    try{ localStorage.setItem(key,val); }catch(e){}
+  }
+};
+
+const ORDER_KEY="jiyun_orders_v2";
+const CATEGORY_KEY="jiyun_categories_v2";
+const RECIP_KEY="jiyun_recipient_v2";
+
+/* ============ 收件人默认值（要改默认就改这里）============ */
+const RECIP_HEADER = "马来西亚收件人";        // 抬头，固定一行
+const RECIPIENT = [
+  {key:"name",    label:"名字",     def:"Chew Yi Sheng"},
+  {key:"address", label:"地址",     def:"No.42,Jalan Raja Uda, Pusat Perniagaan Raja Uda, 12300 Butterworth Seberang Perai Utara, Penang, 12300\nButterworth, Penang, 12300\nMalaysia", area:true},
+  {key:"phone",   label:"电话",     def:"01128175596"},
+  {key:"shipping",label:"运输方式", def:"空运"},
+];
+
+let toastTimer;
+function toast(msg){
+  const t=document.getElementById("toast");
+  t.textContent=""; t.append(msg||"已复制");
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove("show"),1400);
+}
+async function copyText(text){
+  try{ await navigator.clipboard.writeText(text); }
+  catch(e){
+    const ta=document.createElement("textarea");
+    ta.value=text; ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand("copy"); }catch(_){}
+    document.body.removeChild(ta);
+  }
+}
+
+/* ============ 可重复的列表（单号 / 物品类别 共用）============ */
+function makeRepeatable(opts){
+  const list=document.getElementById(opts.listId);
+  function addRow(value=""){
+    const row=document.createElement("div");
+    row.className="field";
+    const inp=document.createElement("input");
+    inp.className=opts.inputClass; inp.placeholder=opts.placeholder; inp.value=value;
+    const copyBtn=document.createElement("button");
+    copyBtn.className="mini copy"; copyBtn.textContent="复制";
+    const delBtn=document.createElement("button");
+    delBtn.className="mini del"; delBtn.textContent="✕";
+    const rowBox=document.createElement("div"); rowBox.className="input-row";
+    rowBox.append(inp,copyBtn,delBtn); row.append(rowBox); list.append(row);
+    inp.addEventListener("input", save);
+    copyBtn.addEventListener("click",()=>{ copyText(inp.value.trim()); toast(opts.toastName+" 已复制"); });
+    delBtn.addEventListener("click",()=>{
+      row.remove();
+      if(!list.querySelector("."+opts.inputClass)) addRow();
+      save();
+    });
+  }
+  async function save(){
+    const vals=[...list.querySelectorAll("."+opts.inputClass)].map(i=>i.value.trim());
+    await Store.set(opts.storageKey, JSON.stringify(vals));
+  }
+  async function build(){
+    const saved=JSON.parse(await Store.get(opts.storageKey) || "[]");
+    if(saved.length===0) addRow(); else saved.forEach(v=>addRow(v));
+  }
+  return {addRow, build, save};
+}
+
+const orders = makeRepeatable({
+  listId:"orderList", inputClass:"order-input",
+  placeholder:"单号", toastName:"单号", storageKey:ORDER_KEY
+});
+const cats = makeRepeatable({
+  listId:"categoryList", inputClass:"category-input",
+  placeholder:"物品类别（如：盒子卡片手表）", toastName:"物品类别", storageKey:CATEGORY_KEY
+});
+
+/* ============ 收件人信息 ============ */
+async function buildRecipient(){
+  const saved=JSON.parse(await Store.get(RECIP_KEY) || "null");
+  const data = saved || Object.fromEntries(RECIPIENT.map(f=>[f.key,f.def]));
+  if(!saved) await Store.set(RECIP_KEY, JSON.stringify(data)); // 第一次把默认存起来
+  const box=document.getElementById("recipFields");
+  box.innerHTML="";
+  RECIPIENT.forEach(f=>{
+    const wrap=document.createElement("div"); wrap.className="field";
+    const lab=document.createElement("label"); lab.textContent=f.label;
+    const el=document.createElement(f.area?"textarea":"input");
+    el.id="r_"+f.key; el.value=data[f.key]??f.def;
+    const copyBtn=document.createElement("button");
+    copyBtn.className="mini copy"; copyBtn.textContent="复制";
+    const rowBox=document.createElement("div"); rowBox.className="input-row";
+    rowBox.append(el,copyBtn);
+    wrap.append(lab,rowBox); box.append(wrap);
+    el.addEventListener("input", saveRecipient);
+    copyBtn.addEventListener("click",()=>{ copyText(el.value.trim()); toast(f.label+" 已复制"); });
+  });
+}
+async function saveRecipient(){
+  const obj={};
+  RECIPIENT.forEach(f=> obj[f.key]=document.getElementById("r_"+f.key).value);
+  await Store.set(RECIP_KEY, JSON.stringify(obj));
+}
+
+/* ============ 复制全部（按集运仓格式拼）============ */
+function buildAllText(){
+  const lines=[];
+  const o=[...document.querySelectorAll(".order-input")].map(i=>i.value.trim()).filter(Boolean);
+  o.forEach(v=>lines.push("单号: "+v));
+  const c=[...document.querySelectorAll(".category-input")].map(i=>i.value.trim()).filter(Boolean);
+  c.forEach(v=>lines.push(v));
+
+  const get=k=>document.getElementById("r_"+k).value.trim();
+  lines.push("");
+  lines.push(RECIP_HEADER);
+  lines.push("名字: "+get("name"));
+  lines.push("");
+  lines.push("地址: "+get("address"));
+  lines.push("");
+  lines.push("电话: "+get("phone"));
+  lines.push("");
+  lines.push(get("shipping"));
+  return lines.join("\n");
+}
+
+/* ============ 启动 ============ */
+(async function init(){
+  await orders.build();
+  await cats.build();
+  await buildRecipient();
+  document.getElementById("addOrder").addEventListener("click",()=>orders.addRow());
+  document.getElementById("addCategory").addEventListener("click",()=>cats.addRow());
+  document.getElementById("copyAll").addEventListener("click",()=>{
+    copyText(buildAllText()); toast("全部已复制");
+  });
+})();
+</script>
+</body>
+</html>
